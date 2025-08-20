@@ -3,48 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iFinder - Tinder de Imóveis | WB Negócios Imobiliários</title>
-    <meta name="description" content="Encontre o imóvel dos seus sonhos com o iFinder. Interface tipo Tinder para busca inteligente de propriedades.">
-    <meta name="keywords" content="imóveis, apartamentos, casas, tinder imóveis, WB Negócios Imobiliários, comprar imóvel, vender imóvel">
-    <meta name="author" content="WB Negócios Imobiliários">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ifinder.wb.com.br/">
-    <meta property="og:title" content="iFinder - Tinder de Imóveis">
-    <meta property="og:description" content="Encontre o imóvel dos seus sonhos com interface intuitiva tipo Tinder">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=630&fit=crop">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://ifinder.wb.com.br/">
-    <meta property="twitter:title" content="iFinder - Tinder de Imóveis">
-    <meta property="twitter:description" content="Encontre o imóvel dos seus sonhos com interface intuitiva tipo Tinder">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=630&fit=crop">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>iFinder - WB Negócios Imobiliários</title>
+    <meta name="description" content="Encontre o imóvel perfeito com interface tipo Tinder. WB Negócios Imobiliários - Tecnologia e experiência personalizada.">
+    <meta name="keywords" content="imóveis, tinder imóveis, WB Negócios, comprar casa, alugar apartamento">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
     
     <style>
-        :root {
-            --wb-blue: #00214D;
-            --wb-gold: #DAA520;
-            --wb-gray: #f8f9fa;
-            --white: #ffffff;
-            --shadow: rgba(0, 33, 77, 0.1);
-            --shadow-hover: rgba(0, 33, 77, 0.2);
-            --gradient: linear-gradient(135deg, var(--wb-blue) 0%, var(--wb-gold) 100%);
-            --gradient-hover: linear-gradient(135deg, #001a3d 0%, #c4941c 100%);
-            --border-radius: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -52,11 +16,10 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--wb-gray);
-            color: var(--wb-blue);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #00214D 0%, #1a365d 100%);
+            min-height: 100vh;
+            color: #333;
         }
 
         .container {
@@ -65,141 +28,88 @@
             padding: 0 20px;
         }
 
-        /* Header Styles */
-        header {
-            background: var(--white);
-            box-shadow: 0 4px 30px var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
 
-        .header-content {
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 1rem 2rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00214D;
         }
 
         .logo-icon {
             width: 40px;
             height: 40px;
-            background: var(--gradient);
-            border-radius: 12px;
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--white);
-            font-size: 20px;
+            font-size: 1.2rem;
         }
 
-        .logo h1 {
-            color: var(--wb-blue);
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0;
-        }
-
-        .logo span {
-            color: var(--wb-gold);
-            font-size: 13px;
-            font-weight: 500;
-            display: block;
-            margin-top: -4px;
-        }
-
-        nav {
+        .nav-buttons {
             display: flex;
-            gap: 8px;
+            gap: 1rem;
         }
 
-        .nav-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            padding: 12px 16px;
-            background: none;
+        .btn {
+            padding: 0.75rem 1.5rem;
             border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            color: var(--wb-blue);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .nav-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--wb-gray);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .nav-btn:hover::before {
-            opacity: 1;
-        }
-
-        .nav-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.active {
-            background: var(--gradient);
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        .nav-btn.active::before {
-            opacity: 0;
-        }
-
-        .nav-btn i {
-            font-size: 20px;
-        }
-
-        .nav-btn span {
-            font-size: 11px;
+            border-radius: 25px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
-        /* Screen Management */
-        .screen {
-            display: none;
-            min-height: calc(100vh - 80px);
-            animation: fadeIn 0.5s ease-in-out;
+        .btn-primary {
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #00214D;
         }
 
-        .screen.active {
-            display: block;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(218, 165, 32, 0.4);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .btn-secondary {
+            background: transparent;
+            color: #00214D;
+            border: 2px solid #00214D;
+        }
+
+        .btn-secondary:hover {
+            background: #00214D;
+            color: white;
         }
 
         /* Hero Section */
         .hero {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 100px 0;
+            padding: 120px 0 80px;
             text-align: center;
+            color: white;
             position: relative;
             overflow: hidden;
         }
@@ -211,310 +121,75 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23DAA520" fill-opacity="0.1" points="0,1000 1000,0 1000,1000"/></svg>');
+            z-index: -1;
         }
 
         .hero h1 {
-            font-size: clamp(36px, 5vw, 56px);
-            margin-bottom: 24px;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             font-weight: 700;
             line-height: 1.2;
         }
 
         .hero p {
-            font-size: clamp(18px, 2.5vw, 22px);
-            margin-bottom: 40px;
-            opacity: 0.95;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--white);
-            color: var(--wb-blue);
-            padding: 20px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-            background: #f8f9fa;
+        .hero .btn {
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            margin: 0 0.5rem;
         }
 
         /* Features Section */
         .features {
-            padding: 100px 0;
-            background: var(--white);
+            padding: 80px 0;
+            background: white;
         }
 
-        .features-header {
+        .features h2 {
             text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .features-header h2 {
-            font-size: clamp(32px, 4vw, 42px);
-            color: var(--wb-blue);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .features-header p {
-            font-size: 18px;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #00214D;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .feature {
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            padding: 50px 30px;
-            border-radius: var(--border-radius);
-            transition: var(--transition);
-            background: var(--wb-gray);
-            border: 2px solid transparent;
+            transition: transform 0.3s ease;
         }
 
-        .feature:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px var(--shadow-hover);
-            border-color: var(--wb-gold);
-            background: var(--white);
+        .feature-card:hover {
+            transform: translateY(-5px);
         }
 
         .feature-icon {
-            width: 90px;
-            height: 90px;
-            background: var(--gradient);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #DAA520, #FFD700);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
-            color: var(--white);
-            font-size: 40px;
-            transition: var(--transition);
-        }
-
-        .feature:hover .feature-icon {
-            transform: scale(1.1);
-        }
-
-        .feature h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: var(--wb-blue);
-            font-weight: 600;
-        }
-
-        .feature p {
-            color: #666;
-            line-height: 1.8;
-            font-size: 16px;
-        }
-
-        /* Swipe Container */
-        .swipe-section {
-            padding: 60px 0;
-            background: var(--wb-gray);
-        }
-
-        .swipe-container {
-            max-width: 420px;
-            margin: 0 auto;
-            position: relative;
-            height: 650px;
-        }
-
-        .property-card {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--white);
-            border-radius: 24px;
-            box-shadow: 0 20px 60px var(--shadow);
-            overflow: hidden;
-            cursor: grab;
-            transition: var(--transition);
-            border: 3px solid transparent;
-        }
-
-        .property-card:active {
-            cursor: grabbing;
-        }
-
-        .property-card:hover {
-            box-shadow: 0 25px 80px var(--shadow-hover);
-            border-color: var(--wb-gold);
-        }
-
-        .property-image {
-            width: 100%;
-            height: 65%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .property-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.3) 100%);
-        }
-
-        .property-type {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--wb-blue);
-            color: var(--white);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 2;
-        }
-
-        .property-info {
-            padding: 30px;
-            height: 35%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .property-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--wb-blue);
-            margin-bottom: 8px;
-            line-height: 1.3;
-        }
-
-        .property-location {
-            color: #666;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-        }
-
-        .property-details {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
-
-        .property-detail {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .property-detail i {
-            color: var(--wb-gold);
-        }
-
-        .property-price {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--wb-gold);
-        }
-
-        /* Swipe Actions */
-        .swipe-actions {
-            position: absolute;
-            bottom: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 25px;
-        }
-
-        .action-btn {
-            width: 70px;
-            height: 70px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            transition: var(--transition);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .action-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: inherit;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-
-        .action-btn:hover {
-            transform: scale(1.15);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .action-btn:hover::before {
-            opacity: 1;
-        }
-
-        .reject-btn {
-            background: linear-gradient(135deg, #ff4458 0%, #ff1744 100%);
-            color: var(--white);
-        }
-
-        .super-like-btn {
-            background: linear-gradient(135deg, #17a2b8 0%, #0288d1 100%);
-            color: var(--white);
-        }
-
-        .like-btn {
-            background: linear-gradient(135deg, #28a745 0%, #2e7d32 100%);
-            color: var(--white);
+            margin: 0 auto 1rem;
+            font-size: 2rem;
         }
 
         /* Modal Styles */
@@ -526,982 +201,676 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
+            z-index: 2000;
             backdrop-filter: blur(5px);
         }
 
         .modal.active {
             display: flex;
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
-            background: var(--white);
-            padding: 50px;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 450px;
-            margin: 20px;
-            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.3);
-            animation: modalSlideIn 0.3s ease-out;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
         }
 
         @keyframes modalSlideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .modal-content h2 {
-            color: var(--wb-blue);
-            margin-bottom: 20px;
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .modal-content p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-
-        .match-property {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin: 30px 0;
-            padding: 20px;
-            background: var(--wb-gray);
-            border-radius: var(--border-radius);
-            text-align: left;
-        }
-
-        .match-property img {
-            width: 80px;
-            height: 80px;
-            border-radius: var(--border-radius);
-            object-fit: cover;
-        }
-
-        .match-info h4 {
-            color: var(--wb-blue);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .match-info p {
-            color: #666;
-            font-size: 14px;
-            margin: 4px 0;
-        }
-
-        .match-price {
-            color: var(--wb-gold);
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 28px;
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
             border: none;
-            border-radius: 12px;
+            font-size: 1.5rem;
             cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: var(--gradient-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--wb-gray);
-            color: var(--wb-blue);
-            border: 2px solid var(--wb-blue);
-        }
-
-        .btn-secondary:hover {
-            background: var(--wb-blue);
-            color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        /* Matches Grid */
-        .matches-section {
-            padding: 60px 0;
-            background: var(--white);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(28px, 4vw, 36px);
-            color: var(--wb-blue);
-            margin-bottom: 16px;
-            font-weight: 700;
-        }
-
-        .section-header p {
             color: #666;
-            font-size: 16px;
         }
 
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+        .modal h2 {
+            color: #00214D;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
-        .match-card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: 0 10px 40px var(--shadow);
-            transition: var(--transition);
-            border: 2px solid transparent;
+        .form-group {
+            margin-bottom: 1rem;
         }
 
-        .match-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px var(--shadow-hover);
-            border-color: var(--wb-gold);
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00214D;
+            font-weight: 600;
         }
 
-        .match-card img {
+        .form-group input,
+        .form-group select {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
 
-        .match-card-content {
-            padding: 25px;
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #DAA520;
         }
 
-        .match-card h4 {
-            color: var(--wb-blue);
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 18px;
+        .form-group input.error {
+            border-color: #e74c3c;
         }
 
-        .match-card p {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 12px;
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
 
-        .match-card .price {
-            color: var(--wb-gold);
-            font-weight: 700;
-            font-size: 20px;
+        .success-message {
+            color: #27ae60;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
         }
 
-        /* Profile Section */
-        .profile-section {
-            padding: 60px 0;
-            background: var(--wb-gray);
+        /* App Interface */
+        .app-interface {
+            display: none;
+            min-height: 100vh;
+            background: #f8f9fa;
         }
 
-        .profile-container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 24px;
-            padding: 50px;
-            box-shadow: 0 20px 60px var(--shadow);
-        }
-
-        .profile-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            color: var(--white);
-            font-size: 40px;
-        }
-
-        .profile-header h2 {
-            color: var(--wb-blue);
-            margin-bottom: 8px;
-            font-weight: 700;
-            font-size: 28px;
-        }
-
-        .profile-header p {
-            color: #666;
-            font-size: 16px;
-        }
-
-        .preferences-section {
-            margin-bottom: 40px;
-        }
-
-        .preferences-section h3 {
-            color: var(--wb-blue);
-            margin-bottom: 25px;
-            font-weight: 600;
-            font-size: 20px;
-        }
-
-        .preference-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--wb-gray);
-        }
-
-        .preference-item:last-child {
-            border-bottom: none;
-        }
-
-        .preference-label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .preference-value {
-            color: var(--wb-blue);
-            font-weight: 600;
-        }
-
-        .stats-section {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
-            padding-top: 30px;
-            border-top: 2px solid var(--wb-gray);
-        }
-
-        .stat-item {
-            flex: 1;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--wb-gold);
+        .app-interface.active {
             display: block;
         }
 
-        .stat-label {
-            font-size: 12px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 4px;
+        .app-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
         }
 
-        /* Responsive Design */
+        .app-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .app-nav .logo {
+            font-size: 1.3rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            color: #DAA520;
+        }
+
+        .nav-icon {
+            font-size: 1.5rem;
+        }
+
+        .nav-text {
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .app-content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #DAA520;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 16px;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .header-content {
-                padding: 12px 0;
+            .hero p {
+                font-size: 1.1rem;
             }
 
-            .logo h1 {
-                font-size: 24px;
+            .nav {
+                padding: 1rem;
             }
 
-            .logo span {
-                font-size: 12px;
-            }
-
-            nav {
-                gap: 4px;
-            }
-
-            .nav-btn {
-                padding: 10px 12px;
-            }
-
-            .nav-btn i {
-                font-size: 18px;
-            }
-
-            .nav-btn span {
-                font-size: 10px;
-            }
-
-            .hero {
-                padding: 60px 0;
-            }
-
-            .features {
-                padding: 60px 0;
+            .nav-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
             }
 
             .features-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .feature {
-                padding: 40px 25px;
-            }
-
-            .swipe-container {
-                max-width: 350px;
-                height: 550px;
-            }
-
-            .swipe-actions {
-                bottom: -80px;
-                gap: 20px;
-            }
-
-            .action-btn {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
             }
 
             .modal-content {
-                padding: 30px;
-                margin: 16px;
+                margin: 1rem;
+                padding: 1.5rem;
             }
 
-            .match-property {
-                flex-direction: column;
-                text-align: center;
+            .nav-menu {
+                gap: 1rem;
             }
 
-            .profile-container {
-                padding: 30px;
-                margin: 0 16px;
-            }
-
-            .stats-section {
-                flex-direction: column;
-                gap: 20px;
+            .nav-text {
+                display: none;
             }
         }
 
-        @media (max-width: 480px) {
-            .matches-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-actions {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
         }
 
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
+        .toast.show {
+            transform: translateX(0);
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .toast.error {
+            background: #e74c3c;
         }
-
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .mb-20 { margin-bottom: 20px; }
-        .mb-40 { margin-bottom: 40px; }
-        .hidden { display: none; }
-        .visible { display: block; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
+    <!-- Landing Page -->
+    <div id="landingPage">
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav">
                 <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <div>
-                        <h1>iFinder</h1>
-                        <span>WB Negócios Imobiliários</span>
-                    </div>
+                    <div class="logo-icon">🏠</div>
+                    <span>iFinder</span>
+                    <small style="color: #DAA520; font-size: 0.8rem;">WB Negócios Imobiliários</small>
                 </div>
-                <nav>
-                    <button class="nav-btn active" onclick="showScreen('home')" aria-label="Ir para início">
-                        <i class="fas fa-home"></i>
-                        <span>Início</span>
-                    </button>
-                    <button class="nav-btn" onclick="showScreen('swipe')" aria-label="Buscar imóveis">
-                        <i class="fas fa-search"></i>
-                        <span>Buscar</span>
-                    </button>
-                    <button class="nav-btn" onclick="showScreen('matches')" aria-label="Ver matches">
-                        <i class="fas fa-heart"></i>
-                        <span>Matches</span>
-                    </button>
-                    <button class="nav-btn" onclick="showScreen('profile')" aria-label="Ver perfil">
-                        <i class="fas fa-user"></i>
-                        <span>Perfil</span>
-                    </button>
-                </nav>
-            </div>
-        </div>
-    </header>
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="openModal('loginModal')">Entrar</button>
+                    <button class="btn btn-primary" onclick="openModal('registerModal')">Cadastrar</button>
+                </div>
+            </nav>
+        </header>
 
-    <!-- Tela Inicial -->
-    <div id="home-screen" class="screen active">
+        <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <div class="hero-content">
-                    <h1>Encontre o Imóvel dos Seus Sonhos</h1>
-                    <p>Deslize, combine e encontre a propriedade perfeita para você com nossa interface intuitiva tipo Tinder</p>
-                    <button class="cta-button" onclick="showScreen('swipe')" aria-label="Começar busca de imóveis">
-                        Começar a Buscar
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
+                <h1>Encontre o Imóvel dos Seus Sonhos</h1>
+                <p>Deslize, combine e encontre a propriedade perfeita para você com nossa interface intuitiva tipo Tinder</p>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Começar a Buscar →</button>
             </div>
         </section>
 
+        <!-- Features Section -->
         <section class="features">
             <div class="container">
-                <div class="features-header">
-                    <h2>Por que escolher o iFinder?</h2>
-                    <p>Revolucionamos a forma como você busca imóveis com tecnologia de ponta e experiência personalizada</p>
-                </div>
+                <h2>Por que escolher o iFinder?</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 3rem;">Revolucionamos a forma como você busca imóveis com tecnologia de ponta e experiência personalizada</p>
+                
                 <div class="features-grid">
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
                         <h3>Interface Intuitiva</h3>
-                        <p>Deslize para a direita se gostar do imóvel, para a esquerda se não interessar. É simples, rápido e divertido como nunca foi antes.</p>
+                        <p>Navegue pelos imóveis com gestos simples, como no Tinder. Deslize para curtir ou rejeitar propriedades.</p>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h3>Matching Inteligente</h3>
-                        <p>Nosso algoritmo avançado aprende suas preferências e apresenta imóveis cada vez mais alinhados com seu perfil ideal.</p>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Matches Inteligentes</h3>
+                        <p>Nosso algoritmo encontra imóveis que combinam perfeitamente com suas preferências e orçamento.</p>
                     </div>
-                    <div class="feature">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
                         <h3>Conexão Direta</h3>
-                        <p>Conecte-se diretamente com proprietários e corretores qualificados, eliminando intermediários desnecessários.</p>
+                        <p>Conecte-se diretamente com proprietários e corretores quando houver interesse mútuo.</p>
                     </div>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Tela de Busca -->
-    <div id="swipe-screen" class="screen">
-        <section class="swipe-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Descubra Seu Próximo Lar</h2>
-                    <p>Deslize pelos imóveis e encontre aquele que combina com você</p>
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            <h2>Entrar no iFinder</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
                 </div>
-                <div class="swipe-container">
-                    <div class="property-card" id="currentCard">
-                        <!-- Conteúdo será carregado dinamicamente -->
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Entrar</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Não tem conta? <a href="#" onclick="closeModal('loginModal'); openModal('registerModal');" style="color: #DAA520;">Cadastre-se</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            <h2>Cadastrar no iFinder</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerName">Nome Completo</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPhone">Telefone</label>
+                    <input type="tel" id="registerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerCPF">CPF</label>
+                    <input type="text" id="registerCPF" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerUserType">Tipo de Usuário</label>
+                    <select id="registerUserType" required>
+                        <option value="">Selecione...</option>
+                        <option value="interessado">Interessado(a) - Busco imóveis</option>
+                        <option value="proprietario">Proprietário(a) - Tenho imóveis</option>
+                        <option value="corretor">Corretor(a) - Trabalho com vendas</option>
+                        <option value="captador">Captador(a) - Busco oportunidades</option>
+                        <option value="outros">Outros - Profissional do setor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Cadastrar</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem;">
+                Já tem conta? <a href="#" onclick="closeModal('registerModal'); openModal('loginModal');" style="color: #DAA520;">Faça login</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- App Interface -->
+    <div id="appInterface" class="app-interface">
+        <header class="app-header">
+            <nav class="app-nav">
+                <div class="logo">
+                    <div class="logo-icon">🏠</div>
+                    <span>iFinder</span>
+                </div>
+                <div class="nav-menu">
+                    <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                        <div class="nav-icon">🏠</div>
+                        <div class="nav-text">INÍCIO</div>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('search')">
+                        <div class="nav-icon">🔍</div>
+                        <div class="nav-text">BUSCAR</div>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('matches')">
+                        <div class="nav-icon">💝</div>
+                        <div class="nav-text">MATCHES</div>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('profile')">
+                        <div class="nav-icon">👤</div>
+                        <div class="nav-text">PERFIL</div>
+                    </a>
+                    <a href="#" class="nav-item" onclick="logout()">
+                        <div class="nav-icon">🚪</div>
+                        <div class="nav-text">SAIR</div>
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="app-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <h2 style="color: #00214D; margin-bottom: 2rem;">Dashboard</h2>
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalProperties">0</div>
+                        <div class="stat-label">Imóveis Cadastrados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalMatches">0</div>
+                        <div class="stat-label">Matches Realizados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalViews">0</div>
+                        <div class="stat-label">Imóveis Visualizados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="matchRate">0%</div>
+                        <div class="stat-label">Taxa de Match</div>
                     </div>
                 </div>
                 
-                <div class="swipe-actions">
-                    <button class="action-btn reject-btn" onclick="rejectProperty()" aria-label="Rejeitar imóvel" title="Não tenho interesse">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <button class="action-btn super-like-btn" onclick="superLikeProperty()" aria-label="Super curtir imóvel" title="Super interesse!">
-                        <i class="fas fa-star"></i>
-                    </button>
-                    <button class="action-btn like-btn" onclick="likeProperty()" aria-label="Curtir imóvel" title="Tenho interesse">
-                        <i class="fas fa-heart"></i>
-                    </button>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #00214D; margin-bottom: 1rem;">Bem-vindo ao iFinder!</h3>
+                    <p style="color: #666; margin-bottom: 1rem;">Você está logado e pode começar a explorar as funcionalidades do aplicativo.</p>
+                    <p style="color: #666;">Use o menu acima para navegar entre as seções: Buscar imóveis, ver seus matches e gerenciar seu perfil.</p>
                 </div>
-            </div>
-        </section>
-    </div>
+            </section>
 
-    <!-- Tela de Matches -->
-    <div id="matches-screen" class="screen">
-        <section class="matches-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Seus Matches</h2>
-                    <p>Imóveis que combinaram com seu perfil</p>
+            <!-- Search Section -->
+            <section id="search" class="section">
+                <h2 style="color: #00214D; margin-bottom: 2rem;">Buscar Imóveis</h2>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔍</div>
+                    <h3 style="color: #00214D; margin-bottom: 1rem;">Funcionalidade em Desenvolvimento</h3>
+                    <p style="color: #666;">A busca de imóveis estará disponível em breve com interface tipo Tinder!</p>
                 </div>
-                <div class="matches-grid" id="matchesGrid">
-                    <!-- Matches serão carregados dinamicamente -->
-                </div>
-            </div>
-        </section>
-    </div>
+            </section>
 
-    <!-- Tela de Perfil -->
-    <div id="profile-screen" class="screen">
-        <section class="profile-section">
-            <div class="container">
-                <div class="profile-container">
-                    <div class="profile-header">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <h2>João Silva</h2>
-                        <p>Interessado em Comprar</p>
-                    </div>
-                    
-                    <div class="preferences-section">
-                        <h3>Suas Preferências</h3>
-                        <div class="preference-item">
-                            <span class="preference-label">Tipo de Imóvel:</span>
-                            <span class="preference-value">Apartamento</span>
-                        </div>
-                        <div class="preference-item">
-                            <span class="preference-label">Faixa de Preço:</span>
-                            <span class="preference-value">R$ 300.000 - R$ 500.000</span>
-                        </div>
-                        <div class="preference-item">
-                            <span class="preference-label">Localização:</span>
-                            <span class="preference-value">São Paulo - SP</span>
-                        </div>
-                        <div class="preference-item">
-                            <span class="preference-label">Quartos:</span>
-                            <span class="preference-value">2-3 quartos</span>
-                        </div>
-                        <div class="preference-item">
-                            <span class="preference-label">Área Mínima:</span>
-                            <span class="preference-value">70m²</span>
-                        </div>
-                    </div>
-                    
-                    <div class="stats-section">
-                        <div class="stat-item">
-                            <span class="stat-number" id="viewedCount">47</span>
-                            <span class="stat-label">Imóveis Vistos</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="matchCount">12</span>
-                            <span class="stat-label">Matches</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="visitCount">3</span>
-                            <span class="stat-label">Visitas Agendadas</span>
-                        </div>
+            <!-- Matches Section -->
+            <section id="matches" class="section">
+                <h2 style="color: #00214D; margin-bottom: 2rem;">Seus Matches</h2>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">💝</div>
+                    <h3 style="color: #00214D; margin-bottom: 1rem;">Nenhum Match Ainda</h3>
+                    <p style="color: #666;">Comece a buscar imóveis para encontrar suas primeiras combinações!</p>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="section">
+                <h2 style="color: #00214D; margin-bottom: 2rem;">Meu Perfil</h2>
+                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #00214D; margin-bottom: 1rem;">Informações do Usuário</h3>
+                    <div id="userInfo">
+                        <p><strong>Nome:</strong> <span id="userName">-</span></p>
+                        <p><strong>Email:</strong> <span id="userEmail">-</span></p>
+                        <p><strong>Tipo:</strong> <span id="userType">-</span></p>
                     </div>
                 </div>
-            </div>
-        </section>
-    </div>
-
-    <!-- Modal de Match -->
-    <div id="matchModal" class="modal" role="dialog" aria-labelledby="matchTitle" aria-describedby="matchDescription">
-        <div class="modal-content">
-            <div style="font-size: 80px; color: var(--wb-gold); margin-bottom: 30px;">
-                <i class="fas fa-heart"></i>
-            </div>
-            <h2 id="matchTitle">É um Match!</h2>
-            <p id="matchDescription">Você e este imóvel se combinaram perfeitamente!</p>
-            <div class="match-property" id="matchPropertyInfo">
-                <!-- Informações do imóvel serão carregadas dinamicamente -->
-            </div>
-            <div class="modal-actions">
-                <button class="btn btn-primary" onclick="closeModal()">Continuar Buscando</button>
-                <button class="btn btn-secondary" onclick="contactOwner()">Entrar em Contato</button>
-            </div>
-        </div>
+            </section>
+        </main>
     </div>
 
     <script>
-        // Base de dados dos imóveis
-        const properties = [
-            {
-                id: 1,
-                title: "Apartamento Moderno no Centro",
-                location: "Centro, São Paulo - SP",
-                price: "R$ 450.000",
-                type: "Apartamento",
-                bedrooms: 2,
-                bathrooms: 2,
-                area: "85m²",
-                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop&q=80"
-            },
-            {
-                id: 2,
-                title: "Casa com Piscina na Vila Madalena",
-                location: "Vila Madalena, São Paulo - SP",
-                price: "R$ 850.000",
-                type: "Casa",
-                bedrooms: 3,
-                bathrooms: 3,
-                area: "180m²",
-                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop&q=80"
-            },
-            {
-                id: 3,
-                title: "Loft Industrial no Brooklin",
-                location: "Brooklin, São Paulo - SP",
-                price: "R$ 380.000",
-                type: "Loft",
-                bedrooms: 1,
-                bathrooms: 1,
-                area: "65m²",
-                image: "https://images.unsplash.com/photo-1502672260266-1c1c93688?w=400&h=300&fit=crop&q=80"
-            },
-            {
-                id: 4,
-                title: "Cobertura Duplex em Moema",
-                location: "Moema, São Paulo - SP",
-                price: "R$ 1.200.000",
-                type: "Cobertura",
-                bedrooms: 4,
-                bathrooms: 4,
-                area: "220m²",
-                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=300&fit=crop&q=80"
-            },
-            {
-                id: 5,
-                title: "Studio Compacto na Liberdade",
-                location: "Liberdade, São Paulo - SP",
-                price: "R$ 280.000",
-                type: "Studio",
-                bedrooms: 1,
-                bathrooms: 1,
-                area: "35m²",
-                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop&q=80"
-            },
-            {
-                id: 6,
-                title: "Sobrado em Condomínio Fechado",
-                location: "Alphaville, Barueri - SP",
-                price: "R$ 950.000",
-                type: "Sobrado",
-                bedrooms: 4,
-                bathrooms: 3,
-                area: "250m²",
-                image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop&q=80"
+        // Global variables
+        let currentUser = null;
+        let users = JSON.parse(localStorage.getItem('ifinder_users') || '[]');
+
+        // Utility functions
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.classList.add('show'), 100);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 3000);
+        }
+
+        function formatCPF(value) {
+            return value.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        }
+
+        function formatPhone(value) {
+            return value.replace(/\D/g, '').replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+
+        function validateCPF(cpf) {
+            cpf = cpf.replace(/\D/g, '');
+            if (cpf.length !== 11) return false;
+            
+            let sum = 0;
+            for (let i = 0; i < 9; i++) {
+                sum += parseInt(cpf.charAt(i)) * (10 - i);
             }
-        ];
+            let remainder = (sum * 10) % 11;
+            if (remainder === 10 || remainder === 11) remainder = 0;
+            if (remainder !== parseInt(cpf.charAt(9))) return false;
+            
+            sum = 0;
+            for (let i = 0; i < 10; i++) {
+                sum += parseInt(cpf.charAt(i)) * (11 - i);
+            }
+            remainder = (sum * 10) % 11;
+            if (remainder === 10 || remainder === 11) remainder = 0;
+            return remainder === parseInt(cpf.charAt(10));
+        }
 
-        // Estado da aplicação
-        let currentPropertyIndex = 0;
-        let matches = JSON.parse(localStorage.getItem('ifinder_matches')) || [];
-        let viewedProperties = JSON.parse(localStorage.getItem('ifinder_viewed')) || [];
-        let stats = JSON.parse(localStorage.getItem('ifinder_stats')) || {
-            viewed: 47,
-            matches: 12,
-            visits: 3
-        };
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
 
-        // Funções de navegação
-        function showScreen(screenName) {
-            // Remover classe active de todas as telas e botões
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // App navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
             });
             
-            // Ativar tela e botão selecionados
-            document.getElementById(screenName + '-screen').classList.add('active');
-            event.target.closest('.nav-btn').classList.add('active');
+            // Remove active class from nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
             
-            // Carregar conteúdo específico da tela
-            if (screenName === 'swipe') {
-                loadCurrentProperty();
-            } else if (screenName === 'matches') {
-                loadMatches();
-            } else if (screenName === 'profile') {
-                updateStats();
-            }
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked nav item
+            event.target.closest('.nav-item').classList.add('active');
         }
 
-        // Funções do sistema de swipe
-        function loadCurrentProperty() {
-            if (currentPropertyIndex >= properties.length) {
-                currentPropertyIndex = 0;
-            }
-            
-            const property = properties[currentPropertyIndex];
-            const card = document.getElementById('currentCard');
-            
-            card.innerHTML = `
-                <div class="property-image" style="background-image: url('${property.image}')">
-                    <div class="property-type">${property.type}</div>
-                </div>
-                <div class="property-info">
-                    <h3 class="property-title">${property.title}</h3>
-                    <div class="property-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        ${property.location}
-                    </div>
-                    <div class="property-details">
-                        <div class="property-detail">
-                            <i class="fas fa-bed"></i>
-                            ${property.bedrooms} quartos
-                        </div>
-                        <div class="property-detail">
-                            <i class="fas fa-bath"></i>
-                            ${property.bathrooms} banheiros
-                        </div>
-                        <div class="property-detail">
-                            <i class="fas fa-ruler-combined"></i>
-                            ${property.area}
-                        </div>
-                    </div>
-                    <div class="property-price">${property.price}</div>
-                </div>
-            `;
+        function logout() {
+            currentUser = null;
+            document.getElementById('landingPage').style.display = 'block';
+            document.getElementById('appInterface').classList.remove('active');
+            showToast('Logout realizado com sucesso!');
         }
 
-        function nextProperty() {
-            const property = properties[currentPropertyIndex];
+        function loginUser(user) {
+            currentUser = user;
+            document.getElementById('landingPage').style.display = 'none';
+            document.getElementById('appInterface').classList.add('active');
             
-            // Adicionar à lista de visualizados
-            if (!viewedProperties.includes(property.id)) {
-                viewedProperties.push(property.id);
-                stats.viewed++;
-                saveData();
-            }
+            // Update user info in profile
+            document.getElementById('userName').textContent = user.name;
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('userType').textContent = user.userType;
             
-            currentPropertyIndex++;
-            if (currentPropertyIndex >= properties.length) {
-                currentPropertyIndex = 0;
-            }
-            
-            loadCurrentProperty();
+            showToast(`Bem-vindo, ${user.name}!`);
         }
 
-        function rejectProperty() {
-            const card = document.getElementById('currentCard');
-            card.style.transform = 'translateX(-100%) rotate(-30deg)';
-            card.style.opacity = '0';
+        // Form handlers
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            setTimeout(() => {
-                card.style.transform = '';
-                card.style.opacity = '1';
-                nextProperty();
-            }, 300);
-        }
-
-        function likeProperty() {
-            const property = properties[currentPropertyIndex];
-            addMatch(property);
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+            const cpf = document.getElementById('registerCPF').value.trim();
+            const userType = document.getElementById('registerUserType').value;
+            const password = document.getElementById('registerPassword').value;
             
-            const card = document.getElementById('currentCard');
-            card.style.transform = 'translateX(100%) rotate(30deg)';
-            card.style.opacity = '0';
-            
-            setTimeout(() => {
-                card.style.transform = '';
-                card.style.opacity = '1';
-                nextProperty();
-                showMatchModal(property);
-            }, 300);
-        }
-
-        function superLikeProperty() {
-            const property = properties[currentPropertyIndex];
-            addMatch(property, true);
-            
-            const card = document.getElementById('currentCard');
-            card.style.transform = 'translateY(-100%) rotate(10deg)';
-            card.style.opacity = '0';
-            
-            setTimeout(() => {
-                card.style.transform = '';
-                card.style.opacity = '1';
-                nextProperty();
-                showMatchModal(property, true);
-            }, 300);
-        }
-
-        // Funções de matches
-        function addMatch(property, superLike = false) {
-            const existingMatch = matches.find(m => m.id === property.id);
-            if (!existingMatch) {
-                matches.push({
-                    ...property,
-                    matchedAt: new Date().toISOString(),
-                    superLike: superLike
-                });
-                stats.matches++;
-                saveData();
-            }
-        }
-
-        function loadMatches() {
-            const matchesGrid = document.getElementById('matchesGrid');
-            
-            if (matches.length === 0) {
-                matchesGrid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
-                        <div style="font-size: 80px; color: var(--wb-gray); margin-bottom: 20px;">
-                            <i class="fas fa-heart-broken"></i>
-                        </div>
-                        <h3 style="color: var(--wb-blue); margin-bottom: 16px;">Nenhum match ainda</h3>
-                        <p style="color: #666;">Comece a buscar imóveis para encontrar seus matches!</p>
-                        <button class="btn btn-primary" onclick="showScreen('swipe')" style="margin-top: 20px;">
-                            Começar a Buscar
-                        </button>
-                    </div>
-                `;
+            // Validation
+            if (!name || !email || !phone || !cpf || !userType || !password) {
+                showToast('Todos os campos são obrigatórios!', 'error');
                 return;
             }
             
-            matchesGrid.innerHTML = matches.map(match => `
-                <div class="match-card">
-                    <img src="${match.image}" alt="${match.title}" loading="lazy">
-                    <div class="match-card-content">
-                        <h4>${match.title}</h4>
-                        <p><i class="fas fa-map-marker-alt"></i> ${match.location}</p>
-                        <p><i class="fas fa-bed"></i> ${match.bedrooms} quartos • <i class="fas fa-bath"></i> ${match.bathrooms} banheiros • ${match.area}</p>
-                        <div class="price">${match.price}</div>
-                        ${match.superLike ? '<div style="color: var(--wb-gold); margin-top: 10px;"><i class="fas fa-star"></i> Super Match!</div>' : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Funções do modal
-        function showMatchModal(property, superLike = false) {
-            const modal = document.getElementById('matchModal');
-            const matchInfo = document.getElementById('matchPropertyInfo');
+            if (!validateCPF(cpf)) {
+                showToast('CPF inválido!', 'error');
+                return;
+            }
             
-            matchInfo.innerHTML = `
-                <img src="${property.image}" alt="${property.title}">
-                <div class="match-info">
-                    <h4>${property.title}</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> ${property.location}</p>
-                    <p><i class="fas fa-bed"></i> ${property.bedrooms} quartos • <i class="fas fa-bath"></i> ${property.bathrooms} banheiros</p>
-                    <div class="match-price">${property.price}</div>
-                    ${superLike ? '<div style="color: var(--wb-gold); margin-top: 8px;"><i class="fas fa-star"></i> Super Match!</div>' : ''}
-                </div>
-            `;
+            if (users.find(user => user.email === email)) {
+                showToast('Email já cadastrado!', 'error');
+                return;
+            }
             
-            modal.classList.add('active');
-        }
+            if (users.find(user => user.cpf === cpf.replace(/\D/g, ''))) {
+                showToast('CPF já cadastrado!', 'error');
+                return;
+            }
+            
+            // Create new user
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                phone: phone.replace(/\D/g, ''),
+                cpf: cpf.replace(/\D/g, ''),
+                userType,
+                password,
+                createdAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('ifinder_users', JSON.stringify(users));
+            
+            closeModal('registerModal');
+            showToast('Cadastro realizado com sucesso!');
+            
+            // Auto login
+            loginUser(newUser);
+        });
 
-        function closeModal() {
-            document.getElementById('matchModal').classList.remove('active');
-        }
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            if (!email || !password) {
+                showToast('Email e senha são obrigatórios!', 'error');
+                return;
+            }
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                showToast('Email ou senha incorretos!', 'error');
+                return;
+            }
+            
+            closeModal('loginModal');
+            loginUser(user);
+        });
 
-        function contactOwner() {
-            alert('Funcionalidade de contato será implementada em breve!');
-            closeModal();
-        }
+        // Format inputs
+        document.getElementById('registerCPF').addEventListener('input', function(e) {
+            e.target.value = formatCPF(e.target.value);
+        });
 
-        // Funções de estatísticas
-        function updateStats() {
-            document.getElementById('viewedCount').textContent = stats.viewed;
-            document.getElementById('matchCount').textContent = stats.matches;
-            document.getElementById('visitCount').textContent = stats.visits;
-        }
+        document.getElementById('registerPhone').addEventListener('input', function(e) {
+            e.target.value = formatPhone(e.target.value);
+        });
 
-        // Funções de persistência
-        function saveData() {
-            localStorage.setItem('ifinder_matches', JSON.stringify(matches));
-            localStorage.setItem('ifinder_viewed', JSON.stringify(viewedProperties));
-            localStorage.setItem('ifinder_stats', JSON.stringify(stats));
-        }
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
 
-        // Event listeners
+        // Initialize app
         document.addEventListener('DOMContentLoaded', function() {
-            loadCurrentProperty();
-            updateStats();
-        });
-
-        // Fechar modal clicando fora
-        document.getElementById('matchModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Suporte a teclado
-        document.addEventListener('keydown', function(e) {
-            if (document.getElementById('swipe-screen').classList.contains('active')) {
-                switch(e.key) {
-                    case 'ArrowLeft':
-                        rejectProperty();
-                        break;
-                    case 'ArrowRight':
-                        likeProperty();
-                        break;
-                    case 'ArrowUp':
-                        superLikeProperty();
-                        break;
-                }
-            }
-        });
-
-        // Suporte a gestos touch (básico)
-        let startX = 0;
-        let startY = 0;
-
-        document.getElementById('currentCard').addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        });
-
-        document.getElementById('currentCard').addEventListener('touchend', function(e) {
-            const endX = e.changedTouches[0].clientX;
-            const endY = e.changedTouches[0].clientY;
-            const diffX = endX - startX;
-            const diffY = endY - startY;
-            
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (diffX > 50) {
-                    likeProperty();
-                } else if (diffX < -50) {
-                    rejectProperty();
-                }
-            } else if (diffY < -50) {
-                superLikeProperty();
-            }
+            console.log('iFinder WB Negócios Imobiliários carregado!');
+            console.log(`Usuários cadastrados: ${users.length}`);
         });
     </script>
 </body>
 </html>
 
+Atualizar iFinder com sistema de cadastro
