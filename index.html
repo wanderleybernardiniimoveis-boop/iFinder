@@ -1554,17 +1554,19 @@
                 <div id="settingsTab" class="account-content">
                     <div class="profile-section">
                         <h2>Configurações</h2>
-                        <div class="form-group">
-                            <label class="form-label">Alterar Senha</label>
-                            <input type="password" class="form-input" placeholder="Nova senha">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Confirmar Nova Senha</label>
-                            <input type="password" class="form-input" placeholder="Confirmar nova senha">
-                        </div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-key"></i> Alterar Senha
-                        </button>
+                        <form id="passwordForm">
+                            <div class="form-group">
+                                <label class="form-label">Alterar Senha</label>
+                                <input type="password" class="form-input" id="newPassword" placeholder="Nova senha">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirmar Nova Senha</label>
+                                <input type="password" class="form-input" id="confirmPassword" placeholder="Confirmar nova senha">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-key"></i> Alterar Senha
+                            </button>
+                        </form>
                         
                         <hr style="margin: 2rem 0;">
                         
@@ -3007,6 +3009,39 @@
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             updateUserInfo();
             showToast('Perfil atualizado com sucesso!', 'success');
+        });
+
+        // Handle Password Form
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (!newPassword || !confirmPassword) {
+                showToast('Por favor, preencha todos os campos', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('As senhas não coincidem', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showToast('A senha deve ter pelo menos 6 caracteres', 'error');
+                return;
+            }
+            
+            // In a real app, this would make an API call
+            currentUser.password = newPassword;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Clear form
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmPassword').value = '';
+            
+            showToast('Senha alterada com sucesso!', 'success');
         });
 
         // Keyboard shortcuts
