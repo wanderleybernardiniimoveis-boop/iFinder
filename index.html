@@ -1806,10 +1806,9 @@
                     <h3 style="margin-bottom: 1rem; color: var(--wb-blue);">
                         <i class="fas fa-chart-line"></i> Atividade Recente
                     </h3>
-                    <p style="color: var(--text-secondary);">
-                        Bem-vindo ao iFinder! Comece explorando imóveis na seção "Buscar" 
-                        para encontrar sua propriedade ideal, ou cadastre seus próprios imóveis na seção "Cadastrar".
-                    </p>
+                    <div id="recentActivity">
+                        <!-- Recent activities will be loaded here -->
+                    </div>
                 </div>
             </section>
 
@@ -2084,6 +2083,14 @@
         let currentY = 0;
         let currentEditingProperty = null;
         let uploadedImages = [];
+        
+        // Integration System Variables
+        let globalProperties = []; // Shared properties across all users
+        let propertyViews = {}; // Track property views by property ID
+        let propertyLikes = {}; // Track property likes by property ID
+        let userActivity = []; // Track user activities for real-time updates
+        let lastSyncTime = 0; // For real-time synchronization
+        let syncInterval = null; // Interval for auto-sync
 
         // Property Data
         const propertyData = [
@@ -2211,11 +2218,219 @@
             // Load saved data
             loadSavedData();
             
+            // Initialize integration system
+            initializeIntegrationSystem();
+            
             // Initialize properties
             properties = [...propertyData];
             
             // Setup swipe functionality
             setupSwipeContainer();
+            
+            // Start real-time sync
+            startRealTimeSync();
+        }
+
+        // Integration System Functions
+        function initializeIntegrationSystem() {
+            // Load global properties from localStorage
+            const savedGlobalProperties = localStorage.getItem('globalProperties');
+            if (savedGlobalProperties) {
+                globalProperties = JSON.parse(savedGlobalProperties);
+            } else {
+                // Initialize with default properties
+                globalProperties = [...propertyData];
+                saveGlobalProperties();
+            }
+
+            // Load property views and likes
+            const savedViews = localStorage.getItem('propertyViews');
+            const savedLikes = localStorage.getItem('propertyLikes');
+            const savedActivity = localStorage.getItem('userActivity');
+
+            if (savedViews) propertyViews = JSON.parse(savedViews);
+            if (savedLikes) propertyLikes = JSON.parse(savedLikes);
+            if (savedActivity) userActivity = JSON.parse(savedActivity);
+
+            // Merge global properties with local properties
+            mergeGlobalProperties();
+        }
+
+        function mergeGlobalProperties() {
+            // Merge global properties with local properties array
+            globalProperties.forEach(globalProp => {
+                const existingIndex = properties.findIndex(p => p.id === globalProp.id);
+                if (existingIndex !== -1) {
+                    // Update existing property with global data
+                    properties[existingIndex] = { ...properties[existingIndex], ...globalProp };
+                } else {
+                    // Add new global property
+                    properties.push(globalProp);
+                }
+            });
+
+            // Update property views and likes counts
+            properties.forEach(property => {
+                property.viewCount = propertyViews[property.id] || 0;
+                property.likeCount = propertyLikes[property.id] || 0;
+            });
+        }
+
+        function saveGlobalProperties() {
+            localStorage.setItem('globalProperties', JSON.stringify(globalProperties));
+        }
+
+        function saveIntegrationData() {
+            localStorage.setItem('propertyViews', JSON.stringify(propertyViews));
+            localStorage.setItem('propertyLikes', JSON.stringify(propertyLikes));
+            localStorage.setItem('userActivity', JSON.stringify(userActivity));
+        }
+
+        function addUserActivity(type, data) {
+            const activity = {
+                id: Date.now(),
+                userId: currentUser.id,
+                userName: currentUser.name,
+                type: type, // 'property_added', 'property_viewed', 'property_liked', 'user_registered'
+                data: data,
+                timestamp: new Date().toISOString()
+            };
+
+            userActivity.unshift(activity);
+            
+            // Keep only last 100 activities
+            if (userActivity.length > 100) {
+                userActivity = userActivity.slice(0, 100);
+            }
+
+            saveIntegrationData();
+            
+            // Broadcast activity to other users (simulated)
+            broadcastActivity(activity);
+        }
+
+        function broadcastActivity(activity) {
+            // In a real app, this would use WebSockets or Server-Sent Events
+            // For now, we'll simulate by updating localStorage with a timestamp
+            localStorage.setItem('lastActivityBroadcast', JSON.stringify({
+                activity: activity,
+                timestamp: Date.now()
+            }));
+        }
+
+        function startRealTimeSync() {
+            // Check for updates every 3 seconds
+            syncInterval = setInterval(() => {
+                checkForUpdates();
+            }, 3000);
+        }
+
+        function checkForUpdates() {
+            const lastBroadcast = localStorage.getItem('lastActivityBroadcast');
+            if (lastBroadcast) {
+                const broadcast = JSON.parse(lastBroadcast);
+                
+                // Only process if it's newer than our last sync and not from current user
+                if (broadcast.timestamp > lastSyncTime && broadcast.activity.userId !== currentUser?.id) {
+                    processRemoteActivity(broadcast.activity);
+                    lastSyncTime = broadcast.timestamp;
+                }
+            }
+
+            // Reload global properties if they've been updated
+            const savedGlobalProperties = localStorage.getItem('globalProperties');
+            if (savedGlobalProperties) {
+                const newGlobalProperties = JSON.parse(savedGlobalProperties);
+                if (JSON.stringify(newGlobalProperties) !== JSON.stringify(globalProperties)) {
+                    globalProperties = newGlobalProperties;
+                    mergeGlobalProperties();
+                    
+                    // Refresh current view if needed
+                    if (document.getElementById('search').classList.contains('active')) {
+                        loadCurrentProperty();
+                    }
+                    
+                    updateDashboardStats();
+                }
+            }
+        }
+
+        function processRemoteActivity(activity) {
+            switch (activity.type) {
+                case 'property_added':
+                    handleRemotePropertyAdded(activity);
+                    break;
+                case 'property_viewed':
+                    handleRemotePropertyViewed(activity);
+                    break;
+                case 'property_liked':
+                    handleRemotePropertyLiked(activity);
+                    break;
+                case 'user_registered':
+                    handleRemoteUserRegistered(activity);
+                    break;
+            }
+        }
+
+        function handleRemotePropertyAdded(activity) {
+            const newProperty = activity.data;
+            
+            // Add to global properties if not exists
+            if (!globalProperties.find(p => p.id === newProperty.id)) {
+                globalProperties.push(newProperty);
+                saveGlobalProperties();
+            }
+
+            // Add to local properties if not exists
+            if (!properties.find(p => p.id === newProperty.id)) {
+                properties.push(newProperty);
+            }
+
+            // Show notification
+            if (currentUser && activity.userId !== currentUser.id) {
+                showToast(`Novo imóvel adicionado por ${activity.userName}!`, 'success');
+            }
+        }
+
+        function handleRemotePropertyViewed(activity) {
+            const propertyId = activity.data.propertyId;
+            propertyViews[propertyId] = (propertyViews[propertyId] || 0) + 1;
+            saveIntegrationData();
+            
+            // Update property in arrays
+            updatePropertyStats(propertyId);
+        }
+
+        function handleRemotePropertyLiked(activity) {
+            const propertyId = activity.data.propertyId;
+            propertyLikes[propertyId] = (propertyLikes[propertyId] || 0) + 1;
+            saveIntegrationData();
+            
+            // Update property in arrays
+            updatePropertyStats(propertyId);
+        }
+
+        function handleRemoteUserRegistered(activity) {
+            if (currentUser && activity.userId !== currentUser.id) {
+                showToast(`${activity.userName} se juntou ao iFinder!`, 'success');
+            }
+        }
+
+        function updatePropertyStats(propertyId) {
+            // Update in properties array
+            const propertyIndex = properties.findIndex(p => p.id === propertyId);
+            if (propertyIndex !== -1) {
+                properties[propertyIndex].viewCount = propertyViews[propertyId] || 0;
+                properties[propertyIndex].likeCount = propertyLikes[propertyId] || 0;
+            }
+
+            // Update in global properties
+            const globalIndex = globalProperties.findIndex(p => p.id === propertyId);
+            if (globalIndex !== -1) {
+                globalProperties[globalIndex].viewCount = propertyViews[propertyId] || 0;
+                globalProperties[globalIndex].likeCount = propertyLikes[propertyId] || 0;
+                saveGlobalProperties();
+            }
         }
 
         function loadSavedData() {
@@ -2336,6 +2551,13 @@
             // Auto login
             currentUser = newUser;
             localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            // Add user registration activity
+            addUserActivity('user_registered', {
+                userId: newUser.id,
+                userName: newUser.name,
+                userType: newUser.userType
+            });
             
             closeAuthModal();
             showApp();
@@ -2601,6 +2823,19 @@
             card.className = 'property-card';
             card.dataset.propertyId = property.id;
             
+            // Track property view when card is created
+            propertyViews[property.id] = (propertyViews[property.id] || 0) + 1;
+            updatePropertyStats(property.id);
+            saveIntegrationData();
+            
+            // Add view activity
+            addUserActivity('property_viewed', {
+                propertyId: property.id,
+                propertyTitle: property.title,
+                propertyOwner: property.ownerName || 'Sistema',
+                action: 'viewed'
+            });
+            
             card.innerHTML = `
                 <img src="${property.image}" alt="${property.title}" class="property-image" 
                      onerror="this.src='https://via.placeholder.com/400x300/00214D/DAA520?text=Imóvel'">
@@ -2630,6 +2865,16 @@
                         </div>
                     </div>
                     <p class="property-description">${property.description}</p>
+                    ${property.ownerName ? `
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.9rem; color: var(--text-secondary);">
+                            <i class="fas fa-user"></i> Anunciado por: <strong>${property.ownerName}</strong>
+                            ${property.ownerType ? `<span style="margin-left: 0.5rem; padding: 0.2rem 0.5rem; background: var(--wb-light-blue); color: var(--wb-blue); border-radius: 12px; font-size: 0.8rem;">${getUserTypeLabel(property.ownerType)}</span>` : ''}
+                        </div>
+                    ` : ''}
+                    <div style="margin-top: 1rem; display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary);">
+                        <span><i class="fas fa-eye"></i> ${property.viewCount || 0} visualizações</span>
+                        <span><i class="fas fa-heart"></i> ${property.likeCount || 0} curtidas</span>
+                    </div>
                 </div>
             `;
             
@@ -2654,8 +2899,22 @@
                     viewedProperties.push(propertyId);
                 }
                 
+                // Track property like in integration system
+                propertyLikes[propertyId] = (propertyLikes[propertyId] || 0) + 1;
+                
+                // Add activity
+                addUserActivity('property_liked', {
+                    propertyId: propertyId,
+                    propertyTitle: property.title,
+                    propertyOwner: property.ownerName || 'Sistema'
+                });
+                
+                // Update property stats
+                updatePropertyStats(propertyId);
+                
                 // Save data
                 saveData();
+                saveIntegrationData();
                 
                 // Show match modal
                 showMatchModal();
@@ -2678,14 +2937,32 @@
             if (!card) return;
             
             const propertyId = parseInt(card.dataset.propertyId);
+            const property = properties.find(p => p.id === propertyId);
             
             // Add to viewed
             if (!viewedProperties.includes(propertyId)) {
                 viewedProperties.push(propertyId);
             }
             
+            // Track property view in integration system
+            propertyViews[propertyId] = (propertyViews[propertyId] || 0) + 1;
+            
+            // Add activity
+            if (property) {
+                addUserActivity('property_viewed', {
+                    propertyId: propertyId,
+                    propertyTitle: property.title,
+                    propertyOwner: property.ownerName || 'Sistema',
+                    action: 'rejected'
+                });
+            }
+            
+            // Update property stats
+            updatePropertyStats(propertyId);
+            
             // Save data
             saveData();
+            saveIntegrationData();
             
             // Update stats
             updateDashboardStats();
@@ -2797,7 +3074,10 @@
                 location: `${document.getElementById('propertyNeighborhood').value}, ${document.getElementById('propertyCity').value} - ${document.getElementById('propertyState').value}`,
                 ownerId: currentUser.id,
                 ownerName: currentUser.name,
+                ownerType: currentUser.userType,
                 status: 'active',
+                viewCount: 0,
+                likeCount: 0,
                 createdAt: currentEditingProperty ? currentEditingProperty.createdAt : new Date().toISOString(),
                 updatedAt: new Date().toISOString()
             };
@@ -2815,16 +3095,32 @@
                     properties[mainIndex] = formData;
                 }
                 
+                // Update in global properties
+                const globalIndex = globalProperties.findIndex(p => p.id === currentEditingProperty.id);
+                if (globalIndex !== -1) {
+                    globalProperties[globalIndex] = formData;
+                    saveGlobalProperties();
+                }
+                
                 showToast('Imóvel atualizado com sucesso!', 'success');
             } else {
                 // Add new property
                 userProperties.push(formData);
                 properties.push(formData);
+                globalProperties.push(formData);
+                
+                // Add property creation activity
+                addUserActivity('property_added', formData);
+                
+                // Save global properties
+                saveGlobalProperties();
+                
                 showToast('Imóvel cadastrado com sucesso!', 'success');
             }
             
             // Save data
             saveData();
+            saveIntegrationData();
             
             // Update dashboard stats
             updateDashboardStats();
@@ -3104,7 +3400,95 @@
             document.getElementById('viewedCount').textContent = viewedProperties.length;
             document.getElementById('matchCount').textContent = matches.length;
             document.getElementById('myPropertiesCount').textContent = userProperties.filter(p => p.ownerId === currentUser.id).length;
-            document.getElementById('propertyViewsCount').textContent = Math.floor(Math.random() * 100); // Simulated for now
+            
+            // Calculate total views for user's properties
+            const userPropertyViews = userProperties
+                .filter(p => p.ownerId === currentUser.id)
+                .reduce((total, prop) => total + (propertyViews[prop.id] || 0), 0);
+            document.getElementById('propertyViewsCount').textContent = userPropertyViews;
+            
+            // Load recent activities
+            loadRecentActivities();
+        }
+
+        function loadRecentActivities() {
+            const activityContainer = document.getElementById('recentActivity');
+            
+            if (userActivity.length === 0) {
+                activityContainer.innerHTML = `
+                    <p style="color: var(--text-secondary); text-align: center; padding: 2rem;">
+                        Nenhuma atividade recente. Comece explorando imóveis na seção "Buscar"!
+                    </p>
+                `;
+                return;
+            }
+
+            // Show last 5 activities
+            const recentActivities = userActivity.slice(0, 5);
+            
+            activityContainer.innerHTML = recentActivities.map(activity => {
+                const timeAgo = getTimeAgo(new Date(activity.timestamp));
+                let activityText = '';
+                let activityIcon = '';
+                let activityColor = '';
+
+                switch (activity.type) {
+                    case 'property_added':
+                        activityText = `${activity.userName} cadastrou "${activity.data.title}"`;
+                        activityIcon = 'fas fa-plus-circle';
+                        activityColor = 'var(--success)';
+                        break;
+                    case 'property_liked':
+                        activityText = `${activity.userName} curtiu "${activity.data.propertyTitle}"`;
+                        activityIcon = 'fas fa-heart';
+                        activityColor = 'var(--error)';
+                        break;
+                    case 'property_viewed':
+                        if (activity.data.action === 'rejected') {
+                            activityText = `${activity.userName} rejeitou "${activity.data.propertyTitle}"`;
+                            activityIcon = 'fas fa-times-circle';
+                            activityColor = 'var(--text-secondary)';
+                        } else {
+                            activityText = `${activity.userName} visualizou "${activity.data.propertyTitle}"`;
+                            activityIcon = 'fas fa-eye';
+                            activityColor = 'var(--wb-blue)';
+                        }
+                        break;
+                    case 'user_registered':
+                        activityText = `${activity.userName} se juntou ao iFinder`;
+                        activityIcon = 'fas fa-user-plus';
+                        activityColor = 'var(--wb-gold)';
+                        break;
+                    default:
+                        activityText = `${activity.userName} realizou uma ação`;
+                        activityIcon = 'fas fa-info-circle';
+                        activityColor = 'var(--text-secondary)';
+                }
+
+                return `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border-color);">
+                        <div style="width: 40px; height: 40px; background: ${activityColor}20; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: ${activityColor};">
+                            <i class="${activityIcon}"></i>
+                        </div>
+                        <div style="flex: 1;">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-primary);">${activityText}</p>
+                            <p style="margin: 0; font-size: 0.8rem; color: var(--text-secondary);">${timeAgo}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Agora mesmo';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} min atrás`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h atrás`;
+            if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} dias atrás`;
+            
+            return date.toLocaleDateString('pt-BR');
         }
 
         // Utility Functions
