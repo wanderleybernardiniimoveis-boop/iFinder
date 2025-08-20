@@ -278,6 +278,25 @@
             box-shadow: 0 0 0 3px rgba(0, 33, 77, 0.1);
         }
 
+        .form-textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: white;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--wb-blue);
+            box-shadow: 0 0 0 3px rgba(0, 33, 77, 0.1);
+        }
+
         .btn-primary {
             width: 100%;
             background: linear-gradient(135deg, var(--wb-blue) 0%, var(--wb-dark-blue) 100%);
@@ -313,6 +332,40 @@
         .btn-secondary:hover {
             background: var(--wb-blue);
             color: white;
+        }
+
+        .btn-danger {
+            background: var(--error);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-danger:hover {
+            background: #E53E3E;
+            transform: translateY(-1px);
+        }
+
+        .btn-edit {
+            background: var(--wb-gold);
+            color: var(--wb-blue);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-edit:hover {
+            background: #B8860B;
+            transform: translateY(-1px);
         }
 
         .close-modal {
@@ -402,6 +455,20 @@
             justify-content: center;
             color: white;
             font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .user-name {
@@ -810,6 +877,20 @@
             color: white;
             font-size: 2rem;
             font-weight: 700;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
         }
 
         .profile-info h2 {
@@ -883,6 +964,258 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
+        }
+
+        /* Account Management Styles */
+        .account-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .account-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: white;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .account-tab:hover {
+            background: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .account-tab.active {
+            background: var(--wb-blue);
+            color: white;
+        }
+
+        .account-content {
+            display: none;
+        }
+
+        .account-content.active {
+            display: block;
+        }
+
+        /* My Properties Styles */
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .my-property-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .my-property-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .property-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-active {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-pending {
+            background: var(--warning);
+            color: white;
+        }
+
+        .status-inactive {
+            background: var(--text-secondary);
+            color: white;
+        }
+
+        .my-property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .my-property-content {
+            padding: 1.5rem;
+        }
+
+        .my-property-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--wb-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .my-property-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .my-property-location {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .property-actions button {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        /* File Upload Styles */
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--border-radius);
+            background: var(--bg-light);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: var(--wb-blue);
+            color: var(--wb-blue);
+        }
+
+        .avatar-upload {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .avatar-upload:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-upload .file-upload-label {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px dashed var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 0.9rem;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-remove {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--error);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .image-remove:hover {
+            background: #E53E3E;
         }
 
         /* Animations */
@@ -962,7 +1295,7 @@
 
             .nav-item {
                 flex: 1;
-                min-width: 120px;
+                min-width: 100px;
             }
 
             .dashboard-grid {
@@ -981,6 +1314,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+
             .profile-header {
                 flex-direction: column;
                 text-align: center;
@@ -988,6 +1325,10 @@
 
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .account-tabs {
+                flex-direction: column;
             }
         }
 
@@ -1181,6 +1522,188 @@
         </div>
     </div>
 
+    <!-- Property Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="close-modal" onclick="closePropertyModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="modal-header">
+                <h2 class="modal-title" id="propertyModalTitle">Cadastrar Imóvel</h2>
+                <p class="modal-subtitle">Preencha as informações do seu imóvel</p>
+            </div>
+            
+            <form id="propertyForm" onsubmit="handlePropertySubmit(event)">
+                <input type="hidden" id="propertyId">
+                
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-info-circle"></i> Informações Básicas
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Título do Anúncio</label>
+                            <input type="text" class="form-input" id="propertyTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tipo de Imóvel</label>
+                            <select class="form-select" id="propertyType" required>
+                                <option value="">Selecione...</option>
+                                <option value="casa">Casa</option>
+                                <option value="apartamento">Apartamento</option>
+                                <option value="comercial">Comercial</option>
+                                <option value="terreno">Terreno</option>
+                                <option value="chacara">Chácara</option>
+                                <option value="sitio">Sítio</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Finalidade</label>
+                            <select class="form-select" id="propertyPurpose" required>
+                                <option value="">Selecione...</option>
+                                <option value="venda">Venda</option>
+                                <option value="locacao">Locação</option>
+                                <option value="ambos">Venda e Locação</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-map-marker-alt"></i> Localização
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">CEP</label>
+                            <input type="text" class="form-input" id="propertyCEP" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select" id="propertyState" required>
+                                <option value="">Selecione...</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="PR">Paraná</option>
+                                <option value="SC">Santa Catarina</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Cidade</label>
+                            <input type="text" class="form-input" id="propertyCity" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bairro</label>
+                            <input type="text" class="form-input" id="propertyNeighborhood" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Endereço Completo</label>
+                        <input type="text" class="form-input" id="propertyAddress" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-ruler-combined"></i> Características
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Quartos</label>
+                            <select class="form-select" id="propertyBedrooms">
+                                <option value="">Selecione...</option>
+                                <option value="0">Studio</option>
+                                <option value="1">1 quarto</option>
+                                <option value="2">2 quartos</option>
+                                <option value="3">3 quartos</option>
+                                <option value="4">4 quartos</option>
+                                <option value="5">5+ quartos</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Banheiros</label>
+                            <select class="form-select" id="propertyBathrooms">
+                                <option value="">Selecione...</option>
+                                <option value="1">1 banheiro</option>
+                                <option value="2">2 banheiros</option>
+                                <option value="3">3 banheiros</option>
+                                <option value="4">4+ banheiros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Área (m²)</label>
+                            <input type="number" class="form-input" id="propertyArea" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Vagas de Garagem</label>
+                            <select class="form-select" id="propertyGarage">
+                                <option value="">Selecione...</option>
+                                <option value="0">Sem garagem</option>
+                                <option value="1">1 vaga</option>
+                                <option value="2">2 vagas</option>
+                                <option value="3">3 vagas</option>
+                                <option value="4">4+ vagas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-dollar-sign"></i> Valores
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Preço</label>
+                            <input type="text" class="form-input" id="propertyPrice" placeholder="R$ 0,00" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Condomínio</label>
+                            <input type="text" class="form-input" id="propertyCondo" placeholder="R$ 0,00">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">IPTU</label>
+                            <input type="text" class="form-input" id="propertyIPTU" placeholder="R$ 0,00">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-align-left"></i> Descrição
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label">Descrição Detalhada</label>
+                        <textarea class="form-textarea" id="propertyDescription" placeholder="Descreva as características e diferenciais do imóvel..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-images"></i> Fotos
+                    </h3>
+                    <div class="form-group">
+                        <div class="file-upload">
+                            <input type="file" id="propertyImages" multiple accept="image/*" onchange="handleImageUpload(event)">
+                            <div class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Clique para adicionar fotos (máximo 10)</span>
+                            </div>
+                        </div>
+                        <div id="imageGallery" class="image-gallery"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-save"></i> <span id="propertySubmitText">Cadastrar Imóvel</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
     <!-- App Container -->
     <div id="appContainer" class="app-container">
         <!-- Header -->
@@ -1194,7 +1717,7 @@
                 </div>
                 
                 <div class="user-info">
-                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-avatar" id="userAvatar" onclick="showSection('account')">U</div>
                     <span class="user-name" id="userName">Usuário</span>
                     <button class="logout-btn" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i>
@@ -1218,13 +1741,13 @@
                     <i class="fas fa-heart"></i>
                     <span>Matches</span>
                 </div>
-                <div class="nav-item" id="cadastrarNav" onclick="showSection('cadastrar')" style="display: none;">
+                <div class="nav-item" onclick="showSection('cadastrar')">
                     <i class="fas fa-plus"></i>
                     <span>Cadastrar</span>
                 </div>
-                <div class="nav-item" onclick="showSection('profile')">
-                    <i class="fas fa-user"></i>
-                    <span>Perfil</span>
+                <div class="nav-item" onclick="showSection('account')">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Conta</span>
                 </div>
             </div>
         </nav>
@@ -1258,24 +1781,24 @@
                     
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Visitas Agendadas</span>
+                            <span class="stat-title">Meus Imóveis</span>
                             <div class="stat-icon">
-                                <i class="fas fa-calendar"></i>
+                                <i class="fas fa-home"></i>
                             </div>
                         </div>
-                        <div class="stat-value">3</div>
-                        <div class="stat-description">Próximas visitas marcadas</div>
+                        <div class="stat-value" id="myPropertiesCount">0</div>
+                        <div class="stat-description">Imóveis cadastrados por você</div>
                     </div>
                     
                     <div class="stat-card">
                         <div class="stat-header">
-                            <span class="stat-title">Economia</span>
+                            <span class="stat-title">Visualizações</span>
                             <div class="stat-icon">
-                                <i class="fas fa-piggy-bank"></i>
+                                <i class="fas fa-chart-line"></i>
                             </div>
                         </div>
-                        <div class="stat-value">R$ 15k</div>
-                        <div class="stat-description">Economizado em comissões</div>
+                        <div class="stat-value" id="propertyViewsCount">0</div>
+                        <div class="stat-description">Visualizações dos seus imóveis</div>
                     </div>
                 </div>
                 
@@ -1285,7 +1808,7 @@
                     </h3>
                     <p style="color: var(--text-secondary);">
                         Bem-vindo ao iFinder! Comece explorando imóveis na seção "Buscar" 
-                        para encontrar sua propriedade ideal.
+                        para encontrar sua propriedade ideal, ou cadastre seus próprios imóveis na seção "Cadastrar".
                     </p>
                 </div>
             </section>
@@ -1336,192 +1859,191 @@
 
             <!-- Cadastrar Section -->
             <section id="cadastrar" class="section">
-                <div class="property-form">
+                <div class="profile-card">
                     <h2 style="margin-bottom: 2rem; color: var(--wb-blue);">
                         <i class="fas fa-plus"></i> Cadastrar Imóvel
                     </h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        Cadastre seus imóveis e alcance milhares de interessados. Todos os tipos de usuários podem cadastrar imóveis no iFinder.
+                    </p>
                     
-                    <form onsubmit="handlePropertySubmit(event)">
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-info-circle"></i> Informações Básicas
-                            </h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Título do Anúncio</label>
-                                    <input type="text" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Tipo de Imóvel</label>
-                                    <select class="form-select" required>
-                                        <option value="">Selecione...</option>
-                                        <option value="casa">Casa</option>
-                                        <option value="apartamento">Apartamento</option>
-                                        <option value="comercial">Comercial</option>
-                                        <option value="terreno">Terreno</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Finalidade</label>
-                                    <select class="form-select" required>
-                                        <option value="">Selecione...</option>
-                                        <option value="venda">Venda</option>
-                                        <option value="locacao">Locação</option>
-                                        <option value="ambos">Venda e Locação</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-map-marker-alt"></i> Localização
-                            </h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">CEP</label>
-                                    <input type="text" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Estado</label>
-                                    <select class="form-select" required>
-                                        <option value="">Selecione...</option>
-                                        <option value="SP">São Paulo</option>
-                                        <option value="RJ">Rio de Janeiro</option>
-                                        <option value="MG">Minas Gerais</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Cidade</label>
-                                    <input type="text" class="form-input" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Bairro</label>
-                                    <input type="text" class="form-input" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-ruler-combined"></i> Características
-                            </h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Quartos</label>
-                                    <select class="form-select">
-                                        <option value="">Selecione...</option>
-                                        <option value="1">1 quarto</option>
-                                        <option value="2">2 quartos</option>
-                                        <option value="3">3 quartos</option>
-                                        <option value="4">4+ quartos</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Banheiros</label>
-                                    <select class="form-select">
-                                        <option value="">Selecione...</option>
-                                        <option value="1">1 banheiro</option>
-                                        <option value="2">2 banheiros</option>
-                                        <option value="3">3 banheiros</option>
-                                        <option value="4">4+ banheiros</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Área (m²)</label>
-                                    <input type="number" class="form-input" min="1">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Vagas de Garagem</label>
-                                    <select class="form-select">
-                                        <option value="">Selecione...</option>
-                                        <option value="0">Sem garagem</option>
-                                        <option value="1">1 vaga</option>
-                                        <option value="2">2 vagas</option>
-                                        <option value="3">3+ vagas</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-section">
-                            <h3 class="section-title">
-                                <i class="fas fa-dollar-sign"></i> Valores
-                            </h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label class="form-label">Preço</label>
-                                    <input type="text" class="form-input" placeholder="R$ 0,00" required>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Condomínio</label>
-                                    <input type="text" class="form-input" placeholder="R$ 0,00">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">IPTU</label>
-                                    <input type="text" class="form-input" placeholder="R$ 0,00">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn-primary">
-                            <i class="fas fa-save"></i> Cadastrar Imóvel
-                        </button>
-                    </form>
+                    <button class="btn-primary" onclick="showPropertyModal()" style="width: auto; padding: 1rem 2rem;">
+                        <i class="fas fa-plus"></i> Novo Imóvel
+                    </button>
                 </div>
             </section>
 
-            <!-- Profile Section -->
-            <section id="profile" class="section">
-                <div class="profile-card">
-                    <div class="profile-header">
-                        <div class="profile-avatar" id="profileAvatar">U</div>
-                        <div class="profile-info">
-                            <h2 id="profileName">Nome do Usuário</h2>
-                            <p id="profileType">Tipo de usuário</p>
+            <!-- Account Section -->
+            <section id="account" class="section">
+                <div class="account-tabs">
+                    <button class="account-tab active" onclick="showAccountTab('profile')">
+                        <i class="fas fa-user"></i>
+                        <span>Perfil</span>
+                    </button>
+                    <button class="account-tab" onclick="showAccountTab('properties')">
+                        <i class="fas fa-home"></i>
+                        <span>Meus Imóveis</span>
+                    </button>
+                    <button class="account-tab" onclick="showAccountTab('settings')">
+                        <i class="fas fa-cog"></i>
+                        <span>Configurações</span>
+                    </button>
+                </div>
+
+                <!-- Profile Tab -->
+                <div id="profileTab" class="account-content active">
+                    <div class="profile-card">
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profileAvatar" onclick="changeProfilePicture()">U</div>
+                            <div class="profile-info">
+                                <h2 id="profileName">Nome do Usuário</h2>
+                                <p id="profileType">Tipo de usuário</p>
+                                <button class="btn-edit" onclick="editProfile()">
+                                    <i class="fas fa-edit"></i> Editar Perfil
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Email</h4>
+                                    <p id="profileEmail">email@exemplo.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Telefone</h4>
+                                    <p id="profilePhone">(11) 99999-9999</p>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>CPF</h4>
+                                    <p id="profileCPF">***.***.***-**</p>
+                                </div>
+                            </div>
+                            
+                            <div class="detail-item">
+                                <div class="detail-icon">
+                                    <i class="fas fa-calendar"></i>
+                                </div>
+                                <div class="detail-content">
+                                    <h4>Membro desde</h4>
+                                    <p id="profileSince">Janeiro 2024</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="profile-details">
-                        <div class="detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="detail-content">
-                                <h4>Email</h4>
-                                <p id="profileEmail">email@exemplo.com</p>
-                            </div>
+                </div>
+
+                <!-- Properties Tab -->
+                <div id="propertiesTab" class="account-content">
+                    <div class="profile-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                            <h2 style="color: var(--wb-blue);">
+                                <i class="fas fa-home"></i> Meus Imóveis
+                            </h2>
+                            <button class="btn-primary" onclick="showPropertyModal()" style="width: auto; padding: 0.75rem 1.5rem;">
+                                <i class="fas fa-plus"></i> Novo Imóvel
+                            </button>
                         </div>
                         
-                        <div class="detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="detail-content">
-                                <h4>Telefone</h4>
-                                <p id="profilePhone">(11) 99999-9999</p>
-                            </div>
+                        <div class="properties-grid" id="myPropertiesGrid">
+                            <!-- User properties will be dynamically inserted here -->
                         </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settingsTab" class="account-content">
+                    <div class="profile-card">
+                        <h2 style="margin-bottom: 2rem; color: var(--wb-blue);">
+                            <i class="fas fa-cog"></i> Configurações
+                        </h2>
                         
-                        <div class="detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-id-card"></i>
+                        <form onsubmit="handleSettingsUpdate(event)">
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-user"></i> Informações Pessoais
+                                </h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Nome Completo</label>
+                                        <input type="text" class="form-input" id="settingsName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Apelido/Nome de Exibição</label>
+                                        <input type="text" class="form-input" id="settingsNickname" placeholder="Como você quer ser chamado">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-input" id="settingsEmail" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Telefone</label>
+                                        <input type="tel" class="form-input" id="settingsPhone" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="detail-content">
-                                <h4>CPF</h4>
-                                <p id="profileCPF">***.***.***-**</p>
+
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-bell"></i> Notificações
+                                </h3>
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                        <input type="checkbox" id="notifyMatches" checked>
+                                        <span>Receber notificações de novos matches</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                        <input type="checkbox" id="notifyMessages" checked>
+                                        <span>Receber notificações de mensagens</span>
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                        <input type="checkbox" id="notifyNewProperties" checked>
+                                        <span>Receber notificações de novos imóveis</span>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="detail-item">
-                            <div class="detail-icon">
-                                <i class="fas fa-calendar"></i>
+
+                            <div class="form-section">
+                                <h3 class="section-title">
+                                    <i class="fas fa-lock"></i> Segurança
+                                </h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Nova Senha</label>
+                                        <input type="password" class="form-input" id="newPassword" placeholder="Deixe em branco para manter a atual">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Confirmar Nova Senha</label>
+                                        <input type="password" class="form-input" id="confirmPassword" placeholder="Confirme a nova senha">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="detail-content">
-                                <h4>Membro desde</h4>
-                                <p id="profileSince">Janeiro 2024</p>
-                            </div>
-                        </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Salvar Configurações
+                            </button>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -1544,6 +2066,9 @@
         </div>
     </div>
 
+    <!-- Profile Picture Upload -->
+    <input type="file" id="profilePictureInput" accept="image/*" style="display: none;" onchange="handleProfilePictureUpload(event)">
+
     <script>
         // Global Variables
         let currentUser = null;
@@ -1551,11 +2076,14 @@
         let properties = [];
         let matches = [];
         let viewedProperties = [];
+        let userProperties = [];
         let isDragging = false;
         let startX = 0;
         let startY = 0;
         let currentX = 0;
         let currentY = 0;
+        let currentEditingProperty = null;
+        let uploadedImages = [];
 
         // Property Data
         const propertyData = [
@@ -1569,7 +2097,8 @@
                 bathrooms: 2,
                 area: 180,
                 image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
-                description: "Linda casa em condomínio fechado com área de lazer completa."
+                description: "Linda casa em condomínio fechado com área de lazer completa.",
+                ownerId: null
             },
             {
                 id: 2,
@@ -1581,7 +2110,8 @@
                 bathrooms: 2,
                 area: 95,
                 image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
-                description: "Apartamento com vista deslumbrante para a praia de Copacabana."
+                description: "Apartamento com vista deslumbrante para a praia de Copacabana.",
+                ownerId: null
             },
             {
                 id: 3,
@@ -1593,7 +2123,8 @@
                 bathrooms: 1,
                 area: 120,
                 image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop",
-                description: "Excelente ponto comercial em região de grande movimento."
+                description: "Excelente ponto comercial em região de grande movimento.",
+                ownerId: null
             },
             {
                 id: 4,
@@ -1605,7 +2136,8 @@
                 bathrooms: 3,
                 area: 250,
                 image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop",
-                description: "Cobertura duplex com terraço e vista panorâmica da cidade."
+                description: "Cobertura duplex com terraço e vista panorâmica da cidade.",
+                ownerId: null
             },
             {
                 id: 5,
@@ -1617,7 +2149,8 @@
                 bathrooms: 2,
                 area: 200,
                 image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop",
-                description: "Casa de campo perfeita para relaxar nos fins de semana."
+                description: "Casa de campo perfeita para relaxar nos fins de semana.",
+                ownerId: null
             },
             {
                 id: 6,
@@ -1629,7 +2162,8 @@
                 bathrooms: 1,
                 area: 45,
                 image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop",
-                description: "Studio moderno em bairro boêmio com ótima localização."
+                description: "Studio moderno em bairro boêmio com ótima localização.",
+                ownerId: null
             },
             {
                 id: 7,
@@ -1641,7 +2175,8 @@
                 bathrooms: 3,
                 area: 280,
                 image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop",
-                description: "Sobrado espaçoso ideal para famílias grandes."
+                description: "Sobrado espaçoso ideal para famílias grandes.",
+                ownerId: null
             },
             {
                 id: 8,
@@ -1653,7 +2188,8 @@
                 bathrooms: 1,
                 area: 110,
                 image: "https://images.unsplash.com/photo-1600607687644-c7171b42498b?w=400&h=300&fit=crop",
-                description: "Loft com design industrial em região corporativa."
+                description: "Loft com design industrial em região corporativa.",
+                ownerId: null
             }
         ];
 
@@ -1685,6 +2221,7 @@
         function loadSavedData() {
             const savedMatches = localStorage.getItem('matches');
             const savedViewed = localStorage.getItem('viewedProperties');
+            const savedUserProperties = localStorage.getItem('userProperties');
             
             if (savedMatches) {
                 matches = JSON.parse(savedMatches);
@@ -1693,11 +2230,22 @@
             if (savedViewed) {
                 viewedProperties = JSON.parse(savedViewed);
             }
+
+            if (savedUserProperties) {
+                userProperties = JSON.parse(savedUserProperties);
+                // Add user properties to main properties array
+                userProperties.forEach(prop => {
+                    if (!properties.find(p => p.id === prop.id)) {
+                        properties.push(prop);
+                    }
+                });
+            }
         }
 
         function saveData() {
             localStorage.setItem('matches', JSON.stringify(matches));
             localStorage.setItem('viewedProperties', JSON.stringify(viewedProperties));
+            localStorage.setItem('userProperties', JSON.stringify(userProperties));
         }
 
         // Auth Functions
@@ -1776,6 +2324,8 @@
                 cpf: formatCPF(cpf),
                 userType,
                 password,
+                nickname: name.split(' ')[0],
+                profilePicture: null,
                 createdAt: new Date().toISOString()
             };
             
@@ -1812,9 +2362,6 @@
             // Update user info in header
             updateUserInfo();
             
-            // Show/hide cadastrar nav based on user type
-            updateNavigation();
-            
             // Load current property
             loadCurrentProperty();
             
@@ -1823,6 +2370,9 @@
             
             // Load matches
             loadMatches();
+
+            // Load user properties
+            loadUserProperties();
         }
 
         function updateUserInfo() {
@@ -1837,27 +2387,36 @@
             const profileCPF = document.getElementById('profileCPF');
             const profileAvatar = document.getElementById('profileAvatar');
             
+            const displayName = currentUser.nickname || currentUser.name.split(' ')[0];
             const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
             
-            userName.textContent = currentUser.name.split(' ')[0];
-            userAvatar.textContent = initials;
+            userName.textContent = displayName;
             profileName.textContent = currentUser.name;
             profileType.textContent = getUserTypeLabel(currentUser.userType);
             profileEmail.textContent = currentUser.email;
             profilePhone.textContent = currentUser.phone;
             profileCPF.textContent = maskCPF(currentUser.cpf);
-            profileAvatar.textContent = initials;
+            
+            // Update avatars
+            if (currentUser.profilePicture) {
+                userAvatar.innerHTML = `<img src="${currentUser.profilePicture}" alt="Avatar">`;
+                profileAvatar.innerHTML = `<img src="${currentUser.profilePicture}" alt="Avatar">`;
+            } else {
+                userAvatar.textContent = initials;
+                profileAvatar.textContent = initials;
+            }
+
+            // Update settings form
+            updateSettingsForm();
         }
 
-        function updateNavigation() {
-            const cadastrarNav = document.getElementById('cadastrarNav');
-            
-            // Show cadastrar nav for proprietarios, corretores, and captadores
-            if (currentUser && ['proprietario', 'corretor', 'captador'].includes(currentUser.userType)) {
-                cadastrarNav.style.display = 'flex';
-            } else {
-                cadastrarNav.style.display = 'none';
-            }
+        function updateSettingsForm() {
+            if (!currentUser) return;
+
+            document.getElementById('settingsName').value = currentUser.name || '';
+            document.getElementById('settingsNickname').value = currentUser.nickname || '';
+            document.getElementById('settingsEmail').value = currentUser.email || '';
+            document.getElementById('settingsPhone').value = currentUser.phone || '';
         }
 
         function getUserTypeLabel(type) {
@@ -1887,13 +2446,38 @@
             document.getElementById(sectionId).classList.add('active');
             
             // Add active class to clicked nav item
-            event.target.closest('.nav-item').classList.add('active');
+            if (event && event.target) {
+                event.target.closest('.nav-item').classList.add('active');
+            }
             
             // Load section-specific content
             if (sectionId === 'search') {
                 loadCurrentProperty();
             } else if (sectionId === 'matches') {
                 loadMatches();
+            } else if (sectionId === 'account') {
+                loadUserProperties();
+            }
+        }
+
+        function showAccountTab(tabId) {
+            // Remove active class from all tabs
+            document.querySelectorAll('.account-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Hide all tab contents
+            document.querySelectorAll('.account-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.querySelector(`[onclick="showAccountTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId + 'Tab').classList.add('active');
+
+            // Load tab-specific content
+            if (tabId === 'properties') {
+                loadUserProperties();
             }
         }
 
@@ -1984,9 +2568,10 @@
             // Clear container
             container.innerHTML = '';
             
-            // Get available properties (not viewed yet)
+            // Get available properties (not viewed yet and not owned by current user)
             const availableProperties = properties.filter(p => 
-                !viewedProperties.includes(p.id)
+                !viewedProperties.includes(p.id) && 
+                (!p.ownerId || p.ownerId !== currentUser.id)
             );
             
             if (availableProperties.length === 0) {
@@ -2130,6 +2715,326 @@
             loadCurrentProperty();
         }
 
+        // Property Modal Functions
+        function showPropertyModal(property = null) {
+            currentEditingProperty = property;
+            uploadedImages = [];
+            
+            const modal = document.getElementById('propertyModal');
+            const title = document.getElementById('propertyModalTitle');
+            const submitText = document.getElementById('propertySubmitText');
+            const form = document.getElementById('propertyForm');
+            
+            if (property) {
+                title.textContent = 'Editar Imóvel';
+                submitText.textContent = 'Salvar Alterações';
+                fillPropertyForm(property);
+            } else {
+                title.textContent = 'Cadastrar Imóvel';
+                submitText.textContent = 'Cadastrar Imóvel';
+                form.reset();
+                document.getElementById('imageGallery').innerHTML = '';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closePropertyModal() {
+            document.getElementById('propertyModal').classList.remove('active');
+            currentEditingProperty = null;
+            uploadedImages = [];
+        }
+
+        function fillPropertyForm(property) {
+            document.getElementById('propertyId').value = property.id;
+            document.getElementById('propertyTitle').value = property.title;
+            document.getElementById('propertyType').value = property.type;
+            document.getElementById('propertyPurpose').value = property.purpose || 'venda';
+            document.getElementById('propertyCEP').value = property.cep || '';
+            document.getElementById('propertyState').value = property.state || '';
+            document.getElementById('propertyCity').value = property.city || '';
+            document.getElementById('propertyNeighborhood').value = property.neighborhood || '';
+            document.getElementById('propertyAddress').value = property.address || '';
+            document.getElementById('propertyBedrooms').value = property.bedrooms;
+            document.getElementById('propertyBathrooms').value = property.bathrooms;
+            document.getElementById('propertyArea').value = property.area;
+            document.getElementById('propertyGarage').value = property.garage || '';
+            document.getElementById('propertyPrice').value = property.price;
+            document.getElementById('propertyCondo').value = property.condo || '';
+            document.getElementById('propertyIPTU').value = property.iptu || '';
+            document.getElementById('propertyDescription').value = property.description;
+            
+            // Load existing images
+            if (property.images && property.images.length > 0) {
+                uploadedImages = [...property.images];
+                updateImageGallery();
+            }
+        }
+
+        function handlePropertySubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                id: currentEditingProperty ? currentEditingProperty.id : Date.now(),
+                title: document.getElementById('propertyTitle').value,
+                type: document.getElementById('propertyType').value,
+                purpose: document.getElementById('propertyPurpose').value,
+                cep: document.getElementById('propertyCEP').value,
+                state: document.getElementById('propertyState').value,
+                city: document.getElementById('propertyCity').value,
+                neighborhood: document.getElementById('propertyNeighborhood').value,
+                address: document.getElementById('propertyAddress').value,
+                bedrooms: parseInt(document.getElementById('propertyBedrooms').value) || 0,
+                bathrooms: parseInt(document.getElementById('propertyBathrooms').value) || 0,
+                area: parseInt(document.getElementById('propertyArea').value) || 0,
+                garage: parseInt(document.getElementById('propertyGarage').value) || 0,
+                price: document.getElementById('propertyPrice').value,
+                condo: document.getElementById('propertyCondo').value,
+                iptu: document.getElementById('propertyIPTU').value,
+                description: document.getElementById('propertyDescription').value,
+                images: uploadedImages,
+                image: uploadedImages[0] || 'https://via.placeholder.com/400x300/00214D/DAA520?text=Imóvel',
+                location: `${document.getElementById('propertyNeighborhood').value}, ${document.getElementById('propertyCity').value} - ${document.getElementById('propertyState').value}`,
+                ownerId: currentUser.id,
+                ownerName: currentUser.name,
+                status: 'active',
+                createdAt: currentEditingProperty ? currentEditingProperty.createdAt : new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            if (currentEditingProperty) {
+                // Update existing property
+                const index = userProperties.findIndex(p => p.id === currentEditingProperty.id);
+                if (index !== -1) {
+                    userProperties[index] = formData;
+                }
+                
+                // Update in main properties array
+                const mainIndex = properties.findIndex(p => p.id === currentEditingProperty.id);
+                if (mainIndex !== -1) {
+                    properties[mainIndex] = formData;
+                }
+                
+                showToast('Imóvel atualizado com sucesso!', 'success');
+            } else {
+                // Add new property
+                userProperties.push(formData);
+                properties.push(formData);
+                showToast('Imóvel cadastrado com sucesso!', 'success');
+            }
+            
+            // Save data
+            saveData();
+            
+            // Update dashboard stats
+            updateDashboardStats();
+            
+            // Reload user properties
+            loadUserProperties();
+            
+            // Close modal
+            closePropertyModal();
+        }
+
+        function handleImageUpload(event) {
+            const files = event.target.files;
+            
+            if (uploadedImages.length + files.length > 10) {
+                showToast('Máximo de 10 imagens permitidas!', 'warning');
+                return;
+            }
+            
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        uploadedImages.push(e.target.result);
+                        updateImageGallery();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        function updateImageGallery() {
+            const gallery = document.getElementById('imageGallery');
+            gallery.innerHTML = uploadedImages.map((image, index) => `
+                <div class="image-item">
+                    <img src="${image}" alt="Imagem ${index + 1}">
+                    <button type="button" class="image-remove" onclick="removeImage(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            updateImageGallery();
+        }
+
+        // User Properties Functions
+        function loadUserProperties() {
+            const grid = document.getElementById('myPropertiesGrid');
+            const myProperties = userProperties.filter(p => p.ownerId === currentUser.id);
+            
+            if (myProperties.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-home"></i>
+                        <h3>Nenhum imóvel cadastrado</h3>
+                        <p>Cadastre seu primeiro imóvel para começar a receber interessados!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = myProperties.map(property => `
+                <div class="my-property-card">
+                    <div class="property-status status-${property.status}">
+                        ${property.status === 'active' ? 'Ativo' : property.status === 'pending' ? 'Pendente' : 'Inativo'}
+                    </div>
+                    <img src="${property.image}" alt="${property.title}" class="my-property-image"
+                         onerror="this.src='https://via.placeholder.com/350x200/00214D/DAA520?text=Imóvel'">
+                    <div class="my-property-content">
+                        <div class="my-property-price">${property.price}</div>
+                        <h3 class="my-property-title">${property.title}</h3>
+                        <div class="my-property-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            ${property.location}
+                        </div>
+                        <div class="property-features">
+                            ${property.bedrooms > 0 ? `
+                                <div class="feature">
+                                    <i class="fas fa-bed"></i>
+                                    ${property.bedrooms}
+                                </div>
+                            ` : ''}
+                            ${property.bathrooms > 0 ? `
+                                <div class="feature">
+                                    <i class="fas fa-bath"></i>
+                                    ${property.bathrooms}
+                                </div>
+                            ` : ''}
+                            <div class="feature">
+                                <i class="fas fa-ruler-combined"></i>
+                                ${property.area}m²
+                            </div>
+                        </div>
+                        <div class="property-actions">
+                            <button class="btn-edit" onclick="showPropertyModal(${JSON.stringify(property).replace(/"/g, '&quot;')})">
+                                <i class="fas fa-edit"></i> Editar
+                            </button>
+                            <button class="btn-danger" onclick="deleteProperty(${property.id})">
+                                <i class="fas fa-trash"></i> Excluir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteProperty(propertyId) {
+            if (confirm('Tem certeza que deseja excluir este imóvel?')) {
+                // Remove from user properties
+                userProperties = userProperties.filter(p => p.id !== propertyId);
+                
+                // Remove from main properties
+                properties = properties.filter(p => p.id !== propertyId);
+                
+                // Remove from matches if exists
+                matches = matches.filter(m => m.id !== propertyId);
+                
+                // Save data
+                saveData();
+                
+                // Update dashboard stats
+                updateDashboardStats();
+                
+                // Reload user properties
+                loadUserProperties();
+                
+                showToast('Imóvel excluído com sucesso!', 'success');
+            }
+        }
+
+        // Profile Functions
+        function changeProfilePicture() {
+            document.getElementById('profilePictureInput').click();
+        }
+
+        function handleProfilePictureUpload(event) {
+            const file = event.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUser.profilePicture = e.target.result;
+                    
+                    // Update user in localStorage
+                    const users = JSON.parse(localStorage.getItem('users') || '[]');
+                    const userIndex = users.findIndex(u => u.id === currentUser.id);
+                    if (userIndex !== -1) {
+                        users[userIndex] = currentUser;
+                        localStorage.setItem('users', JSON.stringify(users));
+                    }
+                    
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    // Update UI
+                    updateUserInfo();
+                    
+                    showToast('Foto de perfil atualizada!', 'success');
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function editProfile() {
+            showAccountTab('settings');
+        }
+
+        function handleSettingsUpdate(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('settingsName').value;
+            const nickname = document.getElementById('settingsNickname').value;
+            const email = document.getElementById('settingsEmail').value;
+            const phone = document.getElementById('settingsPhone').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validate passwords if provided
+            if (newPassword && newPassword !== confirmPassword) {
+                showToast('As senhas não coincidem!', 'error');
+                return;
+            }
+            
+            // Update user data
+            currentUser.name = name;
+            currentUser.nickname = nickname;
+            currentUser.email = email;
+            currentUser.phone = formatPhone(phone);
+            
+            if (newPassword) {
+                currentUser.password = newPassword;
+            }
+            
+            // Update user in localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update UI
+            updateUserInfo();
+            
+            showToast('Configurações salvas com sucesso!', 'success');
+        }
+
         // Match Functions
         function showMatchModal() {
             document.getElementById('matchModal').classList.add('active');
@@ -2198,13 +3103,8 @@
         function updateDashboardStats() {
             document.getElementById('viewedCount').textContent = viewedProperties.length;
             document.getElementById('matchCount').textContent = matches.length;
-        }
-
-        // Property Form Functions
-        function handlePropertySubmit(event) {
-            event.preventDefault();
-            showToast('Imóvel cadastrado com sucesso!', 'success');
-            event.target.reset();
+            document.getElementById('myPropertiesCount').textContent = userProperties.filter(p => p.ownerId === currentUser.id).length;
+            document.getElementById('propertyViewsCount').textContent = Math.floor(Math.random() * 100); // Simulated for now
         }
 
         // Utility Functions
@@ -2287,10 +3187,20 @@
 
         // Auto-format inputs
         document.addEventListener('input', function(e) {
-            if (e.target.id === 'registerPhone') {
+            if (e.target.id === 'registerPhone' || e.target.id === 'settingsPhone') {
                 e.target.value = formatPhone(e.target.value);
             } else if (e.target.id === 'registerCPF') {
                 e.target.value = formatCPF(e.target.value);
+            } else if (e.target.id === 'propertyPrice' || e.target.id === 'propertyCondo' || e.target.id === 'propertyIPTU') {
+                // Format currency inputs
+                let value = e.target.value.replace(/[^\d]/g, '');
+                if (value) {
+                    value = (parseInt(value) / 100).toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    });
+                    e.target.value = value;
+                }
             }
         });
 
