@@ -6,7 +6,7 @@
     <title>iFinder - WB Negócios Imobiliários</title>
     <meta name="description" content="Encontre o imóvel perfeito com interface tipo Tinder. WB Negócios Imobiliários - Tecnologia e experiência personalizada.">
     <meta name="keywords" content="imóveis, tinder imóveis, WB Negócios, comprar casa, alugar apartamento">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>??</text></svg>">
     
     <style>
         * {
@@ -20,6 +20,7 @@
             background: linear-gradient(135deg, #00214D 0%, #1a365d 100%);
             min-height: 100vh;
             color: #333;
+            overflow-x: hidden;
         }
 
         .container {
@@ -82,6 +83,7 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            font-size: 1rem;
         }
 
         .btn-primary {
@@ -263,7 +265,8 @@
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 0.75rem;
             border: 2px solid #e1e5e9;
@@ -273,7 +276,8 @@
         }
 
         .form-group input:focus,
-        .form-group select:focus {
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #DAA520;
         }
@@ -309,6 +313,11 @@
             background: white;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
         }
 
         .app-nav {
@@ -336,11 +345,14 @@
             text-decoration: none;
             transition: color 0.3s ease;
             cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 10px;
         }
 
         .nav-item.active,
         .nav-item:hover {
             color: #DAA520;
+            background: rgba(218, 165, 32, 0.1);
         }
 
         .nav-icon {
@@ -353,7 +365,7 @@
         }
 
         .app-content {
-            padding: 2rem;
+            padding: 100px 2rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -394,6 +406,297 @@
             font-size: 0.9rem;
         }
 
+        /* Swipe Interface */
+        .swipe-container {
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            height: 600px;
+            perspective: 1000px;
+        }
+
+        .property-card {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            user-select: none;
+        }
+
+        .property-card:active {
+            cursor: grabbing;
+        }
+
+        .property-card.swiping {
+            transition: none;
+        }
+
+        .property-image {
+            width: 100%;
+            height: 60%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .property-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.7));
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+        }
+
+        .property-price {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+            height: 40%;
+            overflow-y: auto;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #00214D;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .swipe-actions {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        .action-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .reject-btn {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .super-like-btn {
+            background: #3498db;
+            color: white;
+        }
+
+        .like-btn {
+            background: #27ae60;
+            color: white;
+        }
+
+        /* Match Modal */
+        .match-modal {
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #00214D;
+        }
+
+        .match-modal .modal-content {
+            text-align: center;
+            background: linear-gradient(135deg, #DAA520, #FFD700);
+            color: #00214D;
+        }
+
+        .match-animation {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Property Form */
+        .form-sections {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .form-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section h3 {
+            color: #00214D;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .photo-upload {
+            border: 2px dashed #DAA520;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .photo-upload:hover {
+            background-color: rgba(218, 165, 32, 0.1);
+        }
+
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-remove {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(231, 76, 60, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Matches Grid */
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .match-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .match-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .match-info {
+            padding: 1rem;
+        }
+
+        .match-title {
+            font-weight: bold;
+            color: #00214D;
+            margin-bottom: 0.5rem;
+        }
+
+        .match-price {
+            color: #DAA520;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -429,6 +732,18 @@
             .nav-text {
                 display: none;
             }
+
+            .swipe-container {
+                height: 500px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Toast Notifications */
@@ -453,6 +768,72 @@
         .toast.error {
             background: #e74c3c;
         }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #DAA520;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #DAA520;
+            background: transparent;
+            color: #DAA520;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #DAA520;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -462,7 +843,7 @@
         <header class="header">
             <nav class="nav">
                 <div class="logo">
-                    <div class="logo-icon">🏠</div>
+                    <div class="logo-icon">??</div>
                     <span>iFinder</span>
                     <small style="color: #DAA520; font-size: 0.8rem;">WB Negócios Imobiliários</small>
                 </div>
@@ -478,7 +859,7 @@
             <div class="container">
                 <h1>Encontre o Imóvel dos Seus Sonhos</h1>
                 <p>Deslize, combine e encontre a propriedade perfeita para você com nossa interface intuitiva tipo Tinder</p>
-                <button class="btn btn-primary" onclick="openModal('registerModal')">Começar a Buscar →</button>
+                <button class="btn btn-primary" onclick="openModal('registerModal')">Começar a Buscar ?</button>
             </div>
         </section>
 
@@ -490,17 +871,17 @@
                 
                 <div class="features-grid">
                     <div class="feature-card">
-                        <div class="feature-icon">📱</div>
+                        <div class="feature-icon">??</div>
                         <h3>Interface Intuitiva</h3>
                         <p>Navegue pelos imóveis com gestos simples, como no Tinder. Deslize para curtir ou rejeitar propriedades.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
+                        <div class="feature-icon">??</div>
                         <h3>Matches Inteligentes</h3>
                         <p>Nosso algoritmo encontra imóveis que combinam perfeitamente com suas preferências e orçamento.</p>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🤝</div>
+                        <div class="feature-icon">??</div>
                         <h3>Conexão Direta</h3>
                         <p>Conecte-se diretamente com proprietários e corretores quando houver interesse mútuo.</p>
                     </div>
@@ -576,33 +957,261 @@
         </div>
     </div>
 
+    <!-- Property Form Modal -->
+    <div id="propertyModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <button class="modal-close" onclick="closeModal('propertyModal')">&times;</button>
+            <h2>Cadastrar Imóvel</h2>
+            <form id="propertyForm">
+                <div class="form-sections">
+                    <!-- Informações Básicas -->
+                    <div class="form-section">
+                        <h3>?? Informações Básicas</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyTitle">Título do Anúncio</label>
+                                <input type="text" id="propertyTitle" required placeholder="Ex: Apartamento 3 quartos no Centro">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyType">Tipo de Imóvel</label>
+                                <select id="propertyType" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="apartamento">Apartamento</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="sobrado">Sobrado</option>
+                                    <option value="comercial">Comercial</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="chacara">Chácara</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyPurpose">Finalidade</label>
+                                <select id="propertyPurpose" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="venda">Venda</option>
+                                    <option value="aluguel">Aluguel</option>
+                                    <option value="ambos">Venda e Aluguel</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Localização -->
+                    <div class="form-section">
+                        <h3>?? Localização</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyCEP">CEP</label>
+                                <input type="text" id="propertyCEP" required placeholder="00000-000">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyState">Estado</label>
+                                <select id="propertyState" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="MG">Minas Gerais</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyCity">Cidade</label>
+                                <input type="text" id="propertyCity" required placeholder="Nome da cidade">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyNeighborhood">Bairro</label>
+                                <input type="text" id="propertyNeighborhood" required placeholder="Nome do bairro">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Características -->
+                    <div class="form-section">
+                        <h3>?? Características</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyBedrooms">Quartos</label>
+                                <select id="propertyBedrooms">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyBathrooms">Banheiros</label>
+                                <select id="propertyBathrooms">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5+">5+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyArea">Área (m²)</label>
+                                <input type="number" id="propertyArea" required placeholder="Ex: 85">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyGarage">Vagas de Garagem</label>
+                                <select id="propertyGarage">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4+">4+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comodidades -->
+                    <div class="form-section">
+                        <h3>? Comodidades</h3>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-pool" value="piscina">
+                                <label for="amenity-pool">?? Piscina</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-gym" value="academia">
+                                <label for="amenity-gym">?? Academia</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-playground" value="playground">
+                                <label for="amenity-playground">?? Playground</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-party" value="salao_festas">
+                                <label for="amenity-party">?? Salão de Festas</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-security" value="portaria">
+                                <label for="amenity-security">??? Portaria 24h</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-elevator" value="elevador">
+                                <label for="amenity-elevator">?? Elevador</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-balcony" value="varanda">
+                                <label for="amenity-balcony">?? Varanda</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="amenity-furnished" value="mobiliado">
+                                <label for="amenity-furnished">?? Mobiliado</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Valores -->
+                    <div class="form-section">
+                        <h3>?? Valores</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="propertyPrice">Preço (R$)</label>
+                                <input type="text" id="propertyPrice" required placeholder="Ex: 350.000">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyCondo">Condomínio (R$)</label>
+                                <input type="text" id="propertyCondo" placeholder="Ex: 450">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyIPTU">IPTU (R$)</label>
+                                <input type="text" id="propertyIPTU" placeholder="Ex: 120">
+                            </div>
+                            <div class="form-group">
+                                <label for="propertyFinancing">Aceita Financiamento?</label>
+                                <select id="propertyFinancing">
+                                    <option value="sim">Sim</option>
+                                    <option value="nao">Não</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="form-section">
+                        <h3>?? Descrição</h3>
+                        <div class="form-group">
+                            <label for="propertyDescription">Descrição Detalhada</label>
+                            <textarea id="propertyDescription" rows="4" placeholder="Descreva as principais características e diferenciais do imóvel..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Contato -->
+                    <div class="form-section">
+                        <h3>?? Informações de Contato</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactName">Nome para Contato</label>
+                                <input type="text" id="contactName" required placeholder="Nome do responsável">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactPhone">Telefone</label>
+                                <input type="tel" id="contactPhone" required placeholder="(11) 99999-9999">
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" required placeholder="contato@email.com">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 2rem; font-size: 1.1rem;">
+                    ?? Cadastrar Imóvel
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Match Modal -->
+    <div id="matchModal" class="modal match-modal">
+        <div class="modal-content">
+            <div class="match-animation">??</div>
+            <h2>É um Match!</h2>
+            <p>Você e este imóvel se combinaram perfeitamente!</p>
+            <div id="matchedProperty"></div>
+            <button class="btn btn-primary" onclick="closeModal('matchModal')" style="margin-top: 1rem;">
+                Continuar Buscando
+            </button>
+        </div>
+    </div>
+
     <!-- App Interface -->
     <div id="appInterface" class="app-interface">
         <header class="app-header">
             <nav class="app-nav">
                 <div class="logo">
-                    <div class="logo-icon">🏠</div>
+                    <div class="logo-icon">??</div>
                     <span>iFinder</span>
                 </div>
                 <div class="nav-menu">
                     <a href="#" class="nav-item active" onclick="showSection('dashboard')">
-                        <div class="nav-icon">🏠</div>
+                        <div class="nav-icon">??</div>
                         <div class="nav-text">INÍCIO</div>
                     </a>
                     <a href="#" class="nav-item" onclick="showSection('search')">
-                        <div class="nav-icon">🔍</div>
+                        <div class="nav-icon">??</div>
                         <div class="nav-text">BUSCAR</div>
                     </a>
                     <a href="#" class="nav-item" onclick="showSection('matches')">
-                        <div class="nav-icon">💝</div>
+                        <div class="nav-icon">??</div>
                         <div class="nav-text">MATCHES</div>
                     </a>
+                    <a href="#" class="nav-item" onclick="showSection('properties')" id="propertiesNav" style="display: none;">
+                        <div class="nav-icon">??</div>
+                        <div class="nav-text">IMÓVEIS</div>
+                    </a>
                     <a href="#" class="nav-item" onclick="showSection('profile')">
-                        <div class="nav-icon">👤</div>
+                        <div class="nav-icon">??</div>
                         <div class="nav-text">PERFIL</div>
                     </a>
                     <a href="#" class="nav-item" onclick="logout()">
-                        <div class="nav-icon">🚪</div>
+                        <div class="nav-icon">??</div>
                         <div class="nav-text">SAIR</div>
                     </a>
                 </div>
@@ -636,26 +1245,73 @@
                     <h3 style="color: #00214D; margin-bottom: 1rem;">Bem-vindo ao iFinder!</h3>
                     <p style="color: #666; margin-bottom: 1rem;">Você está logado e pode começar a explorar as funcionalidades do aplicativo.</p>
                     <p style="color: #666;">Use o menu acima para navegar entre as seções: Buscar imóveis, ver seus matches e gerenciar seu perfil.</p>
+                    
+                    <div id="ownerActions" style="display: none; margin-top: 2rem;">
+                        <button class="btn btn-primary" onclick="openModal('propertyModal')">
+                            ?? Cadastrar Imóvel
+                        </button>
+                    </div>
                 </div>
             </section>
 
             <!-- Search Section -->
             <section id="search" class="section">
                 <h2 style="color: #00214D; margin-bottom: 2rem;">Buscar Imóveis</h2>
-                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); text-align: center;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🔍</div>
-                    <h3 style="color: #00214D; margin-bottom: 1rem;">Funcionalidade em Desenvolvimento</h3>
-                    <p style="color: #666;">A busca de imóveis estará disponível em breve com interface tipo Tinder!</p>
+                
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-row">
+                        <span style="font-weight: bold; color: #00214D;">Filtros:</span>
+                        <button class="filter-btn active" onclick="filterProperties('todos')">Todos</button>
+                        <button class="filter-btn" onclick="filterProperties('apartamento')">Apartamentos</button>
+                        <button class="filter-btn" onclick="filterProperties('casa')">Casas</button>
+                        <button class="filter-btn" onclick="filterProperties('comercial')">Comercial</button>
+                    </div>
+                </div>
+
+                <!-- Swipe Interface -->
+                <div class="swipe-container" id="swipeContainer">
+                    <div id="noMoreProperties" class="empty-state" style="display: none;">
+                        <div class="empty-state-icon">??</div>
+                        <h3>Não há mais imóveis para mostrar</h3>
+                        <p>Você visualizou todos os imóveis disponíveis!</p>
+                        <button class="btn btn-primary" onclick="resetSwipe()">Recomeçar</button>
+                    </div>
+                </div>
+
+                <div class="swipe-actions">
+                    <button class="action-btn reject-btn" onclick="swipeProperty('reject')">?</button>
+                    <button class="action-btn super-like-btn" onclick="swipeProperty('super-like')">?</button>
+                    <button class="action-btn like-btn" onclick="swipeProperty('like')">??</button>
                 </div>
             </section>
 
             <!-- Matches Section -->
             <section id="matches" class="section">
                 <h2 style="color: #00214D; margin-bottom: 2rem;">Seus Matches</h2>
-                <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); text-align: center;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">💝</div>
-                    <h3 style="color: #00214D; margin-bottom: 1rem;">Nenhum Match Ainda</h3>
-                    <p style="color: #666;">Comece a buscar imóveis para encontrar suas primeiras combinações!</p>
+                <div id="matchesContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">??</div>
+                        <h3>Nenhum Match Ainda</h3>
+                        <p>Comece a buscar imóveis para encontrar suas primeiras combinações!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Properties Section (for owners) -->
+            <section id="properties" class="section">
+                <h2 style="color: #00214D; margin-bottom: 2rem;">Meus Imóveis</h2>
+                <div style="margin-bottom: 2rem;">
+                    <button class="btn btn-primary" onclick="openModal('propertyModal')">
+                        ?? Cadastrar Novo Imóvel
+                    </button>
+                </div>
+                <div id="propertiesContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">??</div>
+                        <h3>Nenhum Imóvel Cadastrado</h3>
+                        <p>Cadastre seu primeiro imóvel para começar a receber interessados!</p>
+                    </div>
                 </div>
             </section>
 
@@ -667,7 +1323,9 @@
                     <div id="userInfo">
                         <p><strong>Nome:</strong> <span id="userName">-</span></p>
                         <p><strong>Email:</strong> <span id="userEmail">-</span></p>
+                        <p><strong>Telefone:</strong> <span id="userPhone">-</span></p>
                         <p><strong>Tipo:</strong> <span id="userType">-</span></p>
+                        <p><strong>Membro desde:</strong> <span id="userSince">-</span></p>
                     </div>
                 </div>
             </section>
@@ -678,6 +1336,116 @@
         // Global variables
         let currentUser = null;
         let users = JSON.parse(localStorage.getItem('ifinder_users') || '[]');
+        let properties = JSON.parse(localStorage.getItem('ifinder_properties') || '[]');
+        let matches = JSON.parse(localStorage.getItem('ifinder_matches') || '[]');
+        let currentPropertyIndex = 0;
+        let filteredProperties = [];
+
+        // Sample properties data
+        const sampleProperties = [
+            {
+                id: 1,
+                title: "Apartamento Moderno no Centro",
+                type: "apartamento",
+                purpose: "venda",
+                price: "R$ 450.000",
+                bedrooms: 3,
+                bathrooms: 2,
+                area: 85,
+                garage: 1,
+                location: "Centro, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+                amenities: ["piscina", "academia", "portaria"],
+                description: "Apartamento moderno com acabamento de primeira qualidade.",
+                contact: { name: "João Silva", phone: "(71) 99999-9999", email: "joao@email.com" }
+            },
+            {
+                id: 2,
+                title: "Casa Espaçosa na Pituba",
+                type: "casa",
+                purpose: "venda",
+                price: "R$ 750.000",
+                bedrooms: 4,
+                bathrooms: 3,
+                area: 180,
+                garage: 2,
+                location: "Pituba, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=400&h=300&fit=crop",
+                amenities: ["varanda", "playground"],
+                description: "Casa ampla com quintal e área de lazer completa.",
+                contact: { name: "Maria Santos", phone: "(71) 88888-8888", email: "maria@email.com" }
+            },
+            {
+                id: 3,
+                title: "Loft Moderno na Barra",
+                type: "apartamento",
+                purpose: "aluguel",
+                price: "R$ 2.500/mês",
+                bedrooms: 1,
+                bathrooms: 1,
+                area: 45,
+                garage: 1,
+                location: "Barra, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+                amenities: ["mobiliado", "elevador"],
+                description: "Loft completamente mobiliado com vista para o mar.",
+                contact: { name: "Pedro Costa", phone: "(71) 77777-7777", email: "pedro@email.com" }
+            },
+            {
+                id: 4,
+                title: "Sobrado Familiar em Brotas",
+                type: "sobrado",
+                purpose: "venda",
+                price: "R$ 650.000",
+                bedrooms: 4,
+                bathrooms: 3,
+                area: 220,
+                garage: 2,
+                location: "Brotas, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=300&fit=crop",
+                amenities: ["varanda", "playground"],
+                description: "Sobrado ideal para famílias grandes com área de lazer.",
+                contact: { name: "Ana Lima", phone: "(71) 66666-6666", email: "ana@email.com" }
+            },
+            {
+                id: 5,
+                title: "Cobertura Luxuosa no Corredor",
+                type: "apartamento",
+                purpose: "venda",
+                price: "R$ 1.200.000",
+                bedrooms: 4,
+                bathrooms: 4,
+                area: 250,
+                garage: 3,
+                location: "Corredor da Vitória, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&h=300&fit=crop",
+                amenities: ["piscina", "academia", "portaria", "elevador"],
+                description: "Cobertura de luxo com vista panorâmica da cidade.",
+                contact: { name: "Carlos Oliveira", phone: "(71) 55555-5555", email: "carlos@email.com" }
+            },
+            {
+                id: 6,
+                title: "Sala Comercial no Iguatemi",
+                type: "comercial",
+                purpose: "aluguel",
+                price: "R$ 3.800/mês",
+                bedrooms: 0,
+                bathrooms: 2,
+                area: 120,
+                garage: 2,
+                location: "Iguatemi, Salvador - BA",
+                image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=300&fit=crop",
+                amenities: ["elevador", "portaria"],
+                description: "Sala comercial em localização privilegiada.",
+                contact: { name: "Roberto Silva", phone: "(71) 44444-4444", email: "roberto@email.com" }
+            }
+        ];
+
+        // Initialize sample properties if none exist
+        if (properties.length === 0) {
+            properties = sampleProperties;
+            localStorage.setItem('ifinder_properties', JSON.stringify(properties));
+        }
 
         // Utility functions
         function showToast(message, type = 'success') {
@@ -699,6 +1467,10 @@
 
         function formatPhone(value) {
             return value.replace(/\D/g, '').replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
+
+        function formatCurrency(value) {
+            return value.replace(/\D/g, '').replace(/(\d)(\d{3})(\d{3})$/, '$1.$2.$3').replace(/(\d)(\d{3})$/, '$1.$2');
         }
 
         function validateCPF(cpf) {
@@ -748,6 +1520,15 @@
             
             // Add active class to clicked nav item
             event.target.closest('.nav-item').classList.add('active');
+
+            // Load section-specific content
+            if (sectionId === 'search') {
+                loadSwipeInterface();
+            } else if (sectionId === 'matches') {
+                loadMatches();
+            } else if (sectionId === 'properties') {
+                loadUserProperties();
+            }
         }
 
         function logout() {
@@ -765,9 +1546,309 @@
             // Update user info in profile
             document.getElementById('userName').textContent = user.name;
             document.getElementById('userEmail').textContent = user.email;
-            document.getElementById('userType').textContent = user.userType;
+            document.getElementById('userPhone').textContent = formatPhone(user.phone);
+            document.getElementById('userType').textContent = getUserTypeLabel(user.userType);
+            document.getElementById('userSince').textContent = new Date(user.createdAt).toLocaleDateString('pt-BR');
             
+            // Show owner-specific features
+            if (['proprietario', 'corretor', 'captador'].includes(user.userType)) {
+                document.getElementById('ownerActions').style.display = 'block';
+                document.getElementById('propertiesNav').style.display = 'flex';
+            }
+
+            updateDashboardStats();
             showToast(`Bem-vindo, ${user.name}!`);
+        }
+
+        function getUserTypeLabel(type) {
+            const labels = {
+                'interessado': 'Interessado(a) - Busco imóveis',
+                'proprietario': 'Proprietário(a) - Tenho imóveis',
+                'corretor': 'Corretor(a) - Trabalho com vendas',
+                'captador': 'Captador(a) - Busco oportunidades',
+                'outros': 'Outros - Profissional do setor'
+            };
+            return labels[type] || type;
+        }
+
+        function updateDashboardStats() {
+            if (!currentUser) return;
+
+            const userProperties = properties.filter(p => p.ownerId === currentUser.id);
+            const userMatches = matches.filter(m => m.userId === currentUser.id);
+            const userViews = parseInt(localStorage.getItem(`ifinder_views_${currentUser.id}`) || '0');
+            
+            document.getElementById('totalProperties').textContent = userProperties.length;
+            document.getElementById('totalMatches').textContent = userMatches.length;
+            document.getElementById('totalViews').textContent = userViews;
+            
+            const matchRate = userViews > 0 ? Math.round((userMatches.length / userViews) * 100) : 0;
+            document.getElementById('matchRate').textContent = `${matchRate}%`;
+        }
+
+        // Swipe functionality
+        function loadSwipeInterface() {
+            filteredProperties = properties.filter(p => p.ownerId !== currentUser?.id);
+            currentPropertyIndex = 0;
+            showCurrentProperty();
+        }
+
+        function showCurrentProperty() {
+            const container = document.getElementById('swipeContainer');
+            const noMoreDiv = document.getElementById('noMoreProperties');
+            
+            if (currentPropertyIndex >= filteredProperties.length) {
+                container.innerHTML = '';
+                noMoreDiv.style.display = 'block';
+                return;
+            }
+
+            noMoreDiv.style.display = 'none';
+            const property = filteredProperties[currentPropertyIndex];
+            
+            const card = createPropertyCard(property);
+            container.innerHTML = '';
+            container.appendChild(card);
+
+            // Add swipe functionality
+            addSwipeListeners(card);
+        }
+
+        function createPropertyCard(property) {
+            const card = document.createElement('div');
+            card.className = 'property-card';
+            card.innerHTML = `
+                <div class="property-image" style="background-image: url('${property.image}')">
+                    <div class="property-overlay">
+                        <div class="property-price">${property.price}</div>
+                    </div>
+                </div>
+                <div class="property-info">
+                    <div class="property-title">${property.title}</div>
+                    <div class="property-location">?? ${property.location}</div>
+                    <div class="property-features">
+                        ${property.bedrooms > 0 ? `<div class="feature">??? ${property.bedrooms}</div>` : ''}
+                        <div class="feature">?? ${property.bathrooms}</div>
+                        <div class="feature">?? ${property.area}m²</div>
+                        ${property.garage > 0 ? `<div class="feature">?? ${property.garage}</div>` : ''}
+                    </div>
+                    <p style="color: #666; font-size: 0.9rem;">${property.description}</p>
+                </div>
+            `;
+            return card;
+        }
+
+        function addSwipeListeners(card) {
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+
+            // Mouse events
+            card.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+
+            // Touch events
+            card.addEventListener('touchstart', startDrag);
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', endDrag);
+
+            function startDrag(e) {
+                isDragging = true;
+                startX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+                card.classList.add('swiping');
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                currentX = (e.type === 'mousemove' ? e.clientX : e.touches[0].clientX) - startX;
+                const rotation = currentX * 0.1;
+                
+                card.style.transform = `translateX(${currentX}px) rotate(${rotation}deg)`;
+                
+                // Visual feedback
+                if (currentX > 50) {
+                    card.style.borderColor = '#27ae60';
+                } else if (currentX < -50) {
+                    card.style.borderColor = '#e74c3c';
+                } else {
+                    card.style.borderColor = 'transparent';
+                }
+            }
+
+            function endDrag() {
+                if (!isDragging) return;
+                isDragging = false;
+                card.classList.remove('swiping');
+                
+                if (Math.abs(currentX) > 100) {
+                    const action = currentX > 0 ? 'like' : 'reject';
+                    swipeProperty(action);
+                } else {
+                    // Snap back
+                    card.style.transform = '';
+                    card.style.borderColor = 'transparent';
+                }
+                
+                currentX = 0;
+            }
+        }
+
+        function swipeProperty(action) {
+            if (currentPropertyIndex >= filteredProperties.length) return;
+
+            const property = filteredProperties[currentPropertyIndex];
+            
+            // Update views count
+            const currentViews = parseInt(localStorage.getItem(`ifinder_views_${currentUser.id}`) || '0');
+            localStorage.setItem(`ifinder_views_${currentUser.id}`, (currentViews + 1).toString());
+
+            if (action === 'like' || action === 'super-like') {
+                // Add to matches
+                const match = {
+                    id: Date.now(),
+                    userId: currentUser.id,
+                    propertyId: property.id,
+                    type: action,
+                    createdAt: new Date().toISOString()
+                };
+                
+                matches.push(match);
+                localStorage.setItem('ifinder_matches', JSON.stringify(matches));
+                
+                // Show match modal
+                showMatchModal(property);
+            }
+
+            // Move to next property
+            currentPropertyIndex++;
+            setTimeout(() => {
+                showCurrentProperty();
+                updateDashboardStats();
+            }, 300);
+        }
+
+        function showMatchModal(property) {
+            const modal = document.getElementById('matchModal');
+            const content = document.getElementById('matchedProperty');
+            
+            content.innerHTML = `
+                <div style="background: white; padding: 1rem; border-radius: 10px; margin: 1rem 0; color: #333;">
+                    <h4>${property.title}</h4>
+                    <p>${property.location}</p>
+                    <p style="font-weight: bold; color: #DAA520;">${property.price}</p>
+                </div>
+            `;
+            
+            openModal('matchModal');
+        }
+
+        function filterProperties(type) {
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Filter properties
+            if (type === 'todos') {
+                filteredProperties = properties.filter(p => p.ownerId !== currentUser?.id);
+            } else {
+                filteredProperties = properties.filter(p => p.ownerId !== currentUser?.id && p.type === type);
+            }
+            
+            currentPropertyIndex = 0;
+            showCurrentProperty();
+        }
+
+        function resetSwipe() {
+            currentPropertyIndex = 0;
+            showCurrentProperty();
+        }
+
+        // Matches functionality
+        function loadMatches() {
+            const container = document.getElementById('matchesContainer');
+            const userMatches = matches.filter(m => m.userId === currentUser.id);
+            
+            if (userMatches.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">??</div>
+                        <h3>Nenhum Match Ainda</h3>
+                        <p>Comece a buscar imóveis para encontrar suas primeiras combinações!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const matchesGrid = document.createElement('div');
+            matchesGrid.className = 'matches-grid';
+            
+            userMatches.forEach(match => {
+                const property = properties.find(p => p.id === match.propertyId);
+                if (property) {
+                    const matchCard = document.createElement('div');
+                    matchCard.className = 'match-card';
+                    matchCard.innerHTML = `
+                        <div class="match-image" style="background-image: url('${property.image}')"></div>
+                        <div class="match-info">
+                            <div class="match-title">${property.title}</div>
+                            <div style="color: #666; margin-bottom: 0.5rem;">?? ${property.location}</div>
+                            <div class="match-price">${property.price}</div>
+                            <div style="margin-top: 1rem;">
+                                <small style="color: #666;">Match em ${new Date(match.createdAt).toLocaleDateString('pt-BR')}</small>
+                            </div>
+                        </div>
+                    `;
+                    matchesGrid.appendChild(matchCard);
+                }
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(matchesGrid);
+        }
+
+        // Property management
+        function loadUserProperties() {
+            const container = document.getElementById('propertiesContainer');
+            const userProperties = properties.filter(p => p.ownerId === currentUser.id);
+            
+            if (userProperties.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">??</div>
+                        <h3>Nenhum Imóvel Cadastrado</h3>
+                        <p>Cadastre seu primeiro imóvel para começar a receber interessados!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const propertiesGrid = document.createElement('div');
+            propertiesGrid.className = 'matches-grid';
+            
+            userProperties.forEach(property => {
+                const propertyCard = document.createElement('div');
+                propertyCard.className = 'match-card';
+                propertyCard.innerHTML = `
+                    <div class="match-image" style="background-image: url('${property.image}')"></div>
+                    <div class="match-info">
+                        <div class="match-title">${property.title}</div>
+                        <div style="color: #666; margin-bottom: 0.5rem;">?? ${property.location}</div>
+                        <div class="match-price">${property.price}</div>
+                        <div style="margin-top: 1rem;">
+                            <small style="color: #666;">Cadastrado em ${new Date(property.createdAt).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                    </div>
+                `;
+                propertiesGrid.appendChild(propertyCard);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(propertiesGrid);
         }
 
         // Form handlers
@@ -846,6 +1927,93 @@
             loginUser(user);
         });
 
+        document.getElementById('propertyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                title: document.getElementById('propertyTitle').value.trim(),
+                type: document.getElementById('propertyType').value,
+                purpose: document.getElementById('propertyPurpose').value,
+                price: document.getElementById('propertyPrice').value.trim(),
+                bedrooms: parseInt(document.getElementById('propertyBedrooms').value),
+                bathrooms: parseInt(document.getElementById('propertyBathrooms').value),
+                area: parseInt(document.getElementById('propertyArea').value),
+                garage: parseInt(document.getElementById('propertyGarage').value),
+                cep: document.getElementById('propertyCEP').value.trim(),
+                state: document.getElementById('propertyState').value,
+                city: document.getElementById('propertyCity').value.trim(),
+                neighborhood: document.getElementById('propertyNeighborhood').value.trim(),
+                condo: document.getElementById('propertyCondo').value.trim(),
+                iptu: document.getElementById('propertyIPTU').value.trim(),
+                financing: document.getElementById('propertyFinancing').value,
+                description: document.getElementById('propertyDescription').value.trim(),
+                contactName: document.getElementById('contactName').value.trim(),
+                contactPhone: document.getElementById('contactPhone').value.trim(),
+                contactEmail: document.getElementById('contactEmail').value.trim()
+            };
+
+            // Get amenities
+            const amenities = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                amenities.push(checkbox.value);
+            });
+
+            // Validation
+            if (!formData.title || !formData.type || !formData.purpose || !formData.price || 
+                !formData.area || !formData.city || !formData.neighborhood || 
+                !formData.contactName || !formData.contactPhone || !formData.contactEmail) {
+                showToast('Preencha todos os campos obrigatórios!', 'error');
+                return;
+            }
+
+            // Create property object
+            const newProperty = {
+                id: Date.now(),
+                ownerId: currentUser.id,
+                title: formData.title,
+                type: formData.type,
+                purpose: formData.purpose,
+                price: formData.price.includes('R$') ? formData.price : `R$ ${formData.price}`,
+                bedrooms: formData.bedrooms,
+                bathrooms: formData.bathrooms,
+                area: formData.area,
+                garage: formData.garage,
+                location: `${formData.neighborhood}, ${formData.city} - ${formData.state}`,
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop", // Default image
+                amenities: amenities,
+                description: formData.description,
+                contact: {
+                    name: formData.contactName,
+                    phone: formData.contactPhone,
+                    email: formData.contactEmail
+                },
+                cep: formData.cep,
+                condo: formData.condo,
+                iptu: formData.iptu,
+                financing: formData.financing,
+                createdAt: new Date().toISOString()
+            };
+
+            // Save property
+            properties.push(newProperty);
+            localStorage.setItem('ifinder_properties', JSON.stringify(properties));
+
+            closeModal('propertyModal');
+            showToast('Imóvel cadastrado com sucesso!');
+            
+            // Reset form
+            document.getElementById('propertyForm').reset();
+            
+            // Update dashboard
+            updateDashboardStats();
+            
+            // Refresh properties list if on properties section
+            if (document.getElementById('properties').classList.contains('active')) {
+                loadUserProperties();
+            }
+        });
+
         // Format inputs
         document.getElementById('registerCPF').addEventListener('input', function(e) {
             e.target.value = formatCPF(e.target.value);
@@ -853,6 +2021,26 @@
 
         document.getElementById('registerPhone').addEventListener('input', function(e) {
             e.target.value = formatPhone(e.target.value);
+        });
+
+        document.getElementById('contactPhone').addEventListener('input', function(e) {
+            e.target.value = formatPhone(e.target.value);
+        });
+
+        document.getElementById('propertyPrice').addEventListener('input', function(e) {
+            e.target.value = formatCurrency(e.target.value);
+        });
+
+        document.getElementById('propertyCondo').addEventListener('input', function(e) {
+            e.target.value = formatCurrency(e.target.value);
+        });
+
+        document.getElementById('propertyIPTU').addEventListener('input', function(e) {
+            e.target.value = formatCurrency(e.target.value);
+        });
+
+        document.getElementById('propertyCEP').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{5})(\d{3})/, '$1-$2');
         });
 
         // Close modals when clicking outside
@@ -868,9 +2056,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('iFinder WB Negócios Imobiliários carregado!');
             console.log(`Usuários cadastrados: ${users.length}`);
+            console.log(`Imóveis disponíveis: ${properties.length}`);
         });
     </script>
 </body>
 </html>
 
-Atualizar iFinder com sistema de cadastro
