@@ -2297,7 +2297,7 @@
             <!-- Dashboard Section -->
             <section id="dashboard" class="section active">
                 <div class="dashboard-grid">
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="navigateToSection('search')" style="cursor: pointer;">
                         <div class="stat-header">
                             <span class="stat-title">Imóveis Vistos</span>
                             <div class="stat-icon">
@@ -2308,7 +2308,7 @@
                         <div class="stat-description">Total de imóveis visualizados</div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="navigateToSection('matches')" style="cursor: pointer;">
                         <div class="stat-header">
                             <span class="stat-title">Matches</span>
                             <div class="stat-icon">
@@ -2319,7 +2319,7 @@
                         <div class="stat-description">Imóveis que você curtiu</div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="navigateToAccountTab('properties')" style="cursor: pointer;">
                         <div class="stat-header">
                             <span class="stat-title">Meus Imóveis</span>
                             <div class="stat-icon">
@@ -2330,7 +2330,7 @@
                         <div class="stat-description">Imóveis cadastrados por você</div>
                     </div>
                     
-                    <div class="stat-card">
+                    <div class="stat-card" onclick="showPropertyViewsDetails()" style="cursor: pointer;">
                         <div class="stat-header">
                             <span class="stat-title">Visualizações</span>
                             <div class="stat-icon">
@@ -4166,7 +4166,71 @@
             showToast('Funcionalidade de contato será implementada em breve!', 'warning');
         }
 
-        // Dashboard Functions
+        // Navigation Functions
+        function navigateToSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate corresponding nav item
+            const navItem = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (navItem) {
+                navItem.classList.add('active');
+            }
+            
+            // Special handling for specific sections
+            if (sectionId === 'search') {
+                // Reset to swipe mode when navigating to search
+                document.getElementById('swipeContainer').style.display = 'block';
+                document.getElementById('searchResultsContainer').innerHTML = '';
+                document.getElementById('resultsHeader').style.display = 'none';
+                loadCurrentProperty();
+            } else if (sectionId === 'matches') {
+                loadMatches();
+            }
+            
+            showToast(`Navegando para ${getSectionName(sectionId)}`, 'success');
+        }
+
+        function navigateToAccountTab(tabId) {
+            // First navigate to account section
+            navigateToSection('conta');
+            
+            // Then switch to specific tab
+            setTimeout(() => {
+                switchAccountTab(tabId);
+            }, 100);
+        }
+
+        function showPropertyViewsDetails() {
+            // Navigate to account section and show properties tab
+            navigateToAccountTab('properties');
+            
+            // Show detailed view of property statistics
+            setTimeout(() => {
+                showToast('Visualizando estatísticas detalhadas dos seus imóveis', 'info');
+            }, 200);
+        }
+
+        function getSectionName(sectionId) {
+            const sectionNames = {
+                'dashboard': 'Dashboard',
+                'search': 'Buscar Imóveis',
+                'matches': 'Seus Matches',
+                'cadastrar': 'Cadastrar Imóvel',
+                'conta': 'Sua Conta'
+            };
+            return sectionNames[sectionId] || sectionId;
+        }
         function updateDashboardStats() {
             document.getElementById('viewedCount').textContent = viewedProperties.length;
             document.getElementById('matchCount').textContent = matches.length;
